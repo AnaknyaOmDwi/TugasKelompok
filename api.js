@@ -17,7 +17,7 @@ router.get('/api/products',(req,res)=>{
 
 //Mengedit data check product (true/false)
 router.put('/products',(req,res)=>{
-    res.json(walawe)
+    res.json('walawewsadasd')
 })
 
 // Menghapus Data products berdasarkan check product (ture/false)
