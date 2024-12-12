@@ -51,7 +51,7 @@ router.delete('/products', (req, res) => {
             console.error("Query Error: ", err);
             return res.status(500).json({ "status": 500, "error": true, "message": "Query error" });
         }
-        res.status(200).json({ "status": 200, "error": false, "message": `Product ${id} Deleted Succsess` });
+        res.status(200).json({ "status": 200, "error": false, "message": `Product Deleted Succsess` });
     });
 });
 
