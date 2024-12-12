@@ -16,8 +16,30 @@ router.get('/api/products',(req,res)=>{
 })
 
 //Mengedit data check product (true/false)
-router.put('/products',(req,res)=>{
-    res.json('walawewsadasd')
+router.put('/trproducts/:id',(req,res)=>{
+    const id = req.params.id
+    const sql = `UPDATE products SET check_product = '1' WHERE products.id = ?`
+
+    db.query(sql,id,(err,results)=>{
+        if (err) {
+            console.error("Query Error: ", err);
+            return res.status(500).json({ "status": 500, "error": true, "message": "Query error" });
+        }
+        res.status(200).json({"status": 200, "error": false, "message": `Product ${id} Edit Succsess`})
+    })
+})
+
+router.put('/flproducts/:id',(req,res)=>{
+    const id = req.params.id
+    const sql = `UPDATE products SET check_product = '0' WHERE products.id = ?`
+
+    db.query(sql,id,(err,results)=>{
+        if (err) {
+            console.error("Query Error: ", err);
+            return res.status(500).json({ "status": 500, "error": true, "message": "Query error" });
+        }
+        res.status(200).json({"status": 200, "error": false, "message": `Product ${id} Edit Succsess`})
+    })
 })
 
 // Menghapus Data products berdasarkan check product (ture/false)
