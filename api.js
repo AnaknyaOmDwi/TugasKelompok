@@ -44,9 +44,9 @@ router.put('/flproducts/:id',(req,res)=>{
 
 // Menghapus Data products berdasarkan check product (ture/false)
 router.delete('/products', (req, res) => {
-    const query = `INSERT INTO deletehistory (id, product_name, product_photo, product_price, description, shop_id, check_product, quantity) SELECT id, product_name, product_photo, product_price, description, shop_id, 0 AS check_product, quantity FROM products WHERE check_product = 1; DELETE FROM products WHERE check_product = 1;`
+    const sql = `INSERT INTO deletehistory (id, product_name, product_photo, product_price, description, shop_id, check_product, quantity) SELECT id, product_name, product_photo, product_price, description, shop_id, 0 AS check_product, quantity FROM products WHERE check_product = 1; DELETE FROM products WHERE check_product = 1;`
 
-    db.query(query, (err, results) => {
+    db.query(sql, (err, results) => {
         if (err) {
             console.error("Query Error: ", err);
             return res.status(500).json({ "status": 500, "error": true, "message": "Query error" });
@@ -57,9 +57,9 @@ router.delete('/products', (req, res) => {
 
 //Menghapus semua yang berada di history
 router.delete('/history', (req, res) => {
-    const query = `INSERT INTO products (id, product_name, product_photo, product_price, description, shop_id, check_product, quantity) SELECT id, product_name, product_photo, product_price, description, shop_id, check_product, quantity FROM deletehistory; DELETE FROM deletehistory;`
+    const sql = `INSERT INTO products (id, product_name, product_photo, product_price, description, shop_id, check_product, quantity) SELECT id, product_name, product_photo, product_price, description, shop_id, check_product, quantity FROM deletehistory; DELETE FROM deletehistory;`
 
-    db.query(query, (err, results) => {
+    db.query(sql, (err, results) => {
         if (err) {
             console.error("Query Error: ", err);
             return res.status(500).json({ "status": 500, "error": true, "message": "Query error" });
