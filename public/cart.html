@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS FameWork Bootstrap-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- CSS FameWork Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      prefix: 'tw-', // Menambahkan prefix untuk class Tailwind
+    };
+  </script>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="cart.css">
+  <title>Cart Shop</title>
+</head>
+
+<body>
+  <div class="pembungkus d-flex mt-5">
+    <div class="pembungkus-cart">
+
+      <!-- Cart -->
+      <h1 class="fw-bold poppins-regular tw-text-[34px]">keranjang saya</h1>
+      <div class="bar-cart tw-flex tw-justify-between tw-items-center tw-pl-4 tw-pr-4 tw-rounded-lg">
+
+        <!-- Bar Cart -->
+        <div>
+          <label for="checkbox-all">
+            <input type="checkbox" id="checkbox-all" name="checkbox-all" />
+            Pilih Semua
+          </label>
+        </div>
+        <div>
+          <button type="button" class="btn btn-outline-danger d-flex align-items-center" id="delete-product">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor"
+              class="bi bi-trash3-fill " viewBox="0 0 16 16">
+              <path
+                d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+            </svg> <i class="poppins-regular tw-text-[14px]">Hapus</i>
+          </button>
+        </div>
+      </div>
+
+      <!-- My Cart -->
+      <div class="my-cart tw-flex tw-justify-start tw-flex-col gap-4">
+
+        <!-- Toko -->
+        <div class="tw-flex tw-justify-start tw-rounded-lg gap-2">
+          <label for="checkbox-toko1">
+            <input type="checkbox" id="checkbox-toko1" name="checkbox-toko1" />
+          </label>
+          <div class="tw-flex gap-1">
+            <img src="./Foto/Screenshot 2024-09-29 134201.png" class="tw-rounded-full" width="25px" alt="Toko">
+            Toko 1
+          </div>
+        </div>
+
+        <!-- Product -->
+        <div class="tw-flex tw-justify-start tw-items-center gap-3">
+          <label for="checkbox-product1">
+            <input type="checkbox" id="checkbox-product1" name="checkbox-product1" />
+          </label>
+
+          <div class="tw-flex tw-justify-start gap-2" id="product">
+            <img src="./Foto/Screenshot 2024-09-29 134201.png" class="img-thumbna il tw-rounded-lg" width="120px"
+              alt="1">
+            <div class="tw-flex tw-justify-between tw-flex-col mb-2">
+              <h2 class="poppins-regular tw-text-[24px]">Walawe</h3>
+                <a class="icon-link icon-link-hover tw-underline link-underline-secondary" href="#">
+                  Deskripsi Produk
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                  </svg>
+                </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--All Cart Price -->
+    <div class="total">
+
+    </div>
+
+
+    <script src="cart.js"></script>
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"></script>
+</body>
+
+</html>
