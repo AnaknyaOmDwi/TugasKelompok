@@ -4,7 +4,20 @@ body {
   color: #333;
 }
 
-/* CheckBox Aniamtion */
+/* Judul */
+h1, h2 {
+  font-family: "Poppins", sans-serif; /* Font untuk judul */
+  font-weight: 600; /* Tebal */
+  color: black; /* Font hitam untuk bagian Keranjang Saya */
+}
+
+/* Deskripsi dan teks kecil */
+p, label, a {
+  font-family: "Roboto", sans-serif; /* Font untuk teks konten */
+  font-weight: 300; /* Ringan */
+}
+
+/* CheckBox Animation */
 :root {
   /* -- Colors: */
   --body-bg-color: hsl(221deg 16% 12%);
@@ -125,12 +138,13 @@ label[for*="checkbox"] {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
+  font-size: 20px;
 }
 
 /* Pemisah Antara Keranjang dan total */
 .pembungkus {
   justify-content: center;
-  gap: 10px;
+  gap: 13px;
 }
 
 /* Keranjang */
@@ -151,4 +165,207 @@ label[for*="checkbox"] {
 .desk{
   border: none;
   text-decoration: underline;
+}
+
+/* .tw-flex gap-1{
+  background-color: #28a745;
+} */
+
+.pembungkus {
+  display: flex; /* Membuat elemen anak menjadi flex item */
+  gap: 20px; /* Jarak antar elemen */
+}
+
+.flex-container-box {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 300px;
+  height: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  font-family: "Roboto", sans-serif;
+}
+
+.flex-container-box h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-bottom: 220px;
+}
+
+.promo {
+  display: flex;
+  align-items: center;
+  background-color: #f4fcf4;
+  border: 1px solid #d9f2d9;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.promo img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.promo p {
+  font-size: 16px;
+  margin: 0;
+}
+
+.btn-buy {
+  width: 100%;
+  padding: 10px 0;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-buy:hover {
+  background-color: #218838;
+}
+
+/* Menambahkan jarak antara gambar dan teks */
+.flex-container-box img {
+  margin-bottom: 10px; /* Jarak antara gambar dan teks */
+} 
+
+.toko {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.toko label {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.toko input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+/* .toko.tw-flex {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+} */
+
+.toko img {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+
+.product-details{
+  
+}
+.priceQuantity {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.price {
+  font-size: 18px;
+  color: #333;
+  margin: 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  max-width: 300px;
+  margin: 10px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  max-width: 300px;
+  margin: 10px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.quantity-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  /* transition: background-color 0.3s ease; */
+}
+
+.quantity-btn:hover {
+  background-color: #0056b3;
+}
+
+.quantity-value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+/* Overlay untuk menutupi halaman */
+.overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* Styling untuk tombol hapus */
+#deleteBtn {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Styling untuk tombol hapus yang berubah warna menjadi hijau */
+#deleteBtn.green {
+  background-color: green;
 }
