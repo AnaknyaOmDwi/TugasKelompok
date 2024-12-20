@@ -173,7 +173,15 @@ label[for*="checkbox"] {
 
 .pembungkus {
   display: flex; /* Membuat elemen anak menjadi flex item */
-  gap: 20px; /* Jarak antar elemen */
+  flex-direction: column;
+  gap: 15px; /* Jarak antar elemen */
+  margin: 25%;
+  margin-top: 3%;
+
+}
+
+img{
+  height: 120px;
 }
 
 .flex-container-box {
@@ -277,6 +285,11 @@ label[for*="checkbox"] {
 .product-details{
   
 }
+
+.nama-product{
+  gap: 40rem;
+}
+
 .priceQuantity {
   display: flex;
   flex-direction: column;

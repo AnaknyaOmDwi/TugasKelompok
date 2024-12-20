@@ -26,11 +26,12 @@
 </head>
 
 <body>
-  <div class="pembungkus d-flex mt-5">
+  <div class="pembungkus">
+    <!-- Cart Header -->
+    <h1 class="fw-bold poppins-regular tw-text-[34px]">Keranjang saya</h1>
     <div class="tw-flex gap-5">
       <div class="pembungkus-cart d-flex">
-        <!-- Cart Header -->
-        <h1 class="fw-bold poppins-regular tw-text-[34px]">Keranjang saya</h1>
+
         <div class="bar-cart tw-flex tw-justify-between tw-items-center tw-pl-4 tw-pr-4 tw-rounded-lg">
           <div>
             <label for="checkbox-all">
@@ -40,8 +41,8 @@
           </div>
           <div>
             <button type="button" class="btn btn-outline-danger d-flex align-items-center" id="delete-product">
-              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor" class="bi bi-trash3-fill"
-                viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor"
+                class="bi bi-trash3-fill" viewBox="0 0 16 16">
                 <path
                   d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
               </svg>
@@ -49,7 +50,7 @@
             </button>
           </div>
         </div>
-  
+
         <!-- Cart Items -->
         <div class="my-cart tw-flex tw-justify-start tw-flex-col gap-4">
           <!-- Store -->
@@ -62,83 +63,104 @@
               Toko 1
             </div>
           </div>
-  
+
           <!-- Product -->
-          <div class="tw-flex tw-justify-start tw-items-center gap-3">
+          <div class="tw-flex tw-justify-start tw-items-center gap-3 " width="100px">
             <label for="checkbox-product1">
               <input type="checkbox" id="checkbox-product1" name="checkbox-product1" />
             </label>
-            <div class="tw-flex tw-justify-start gap-2" id="product">
-              <img src="./img/loader.gif" class="img-thumbnail tw-rounded-lg" width="120px" height="120px" alt="1" />
+            <div class="tw-flex gap-2" id="product">
+              <div>
+                <img src="./img/loader.gif" width="150px" alt="1" />
+              </div>
               <div class="product-details tw-flex">
-                <div class="">
-                  <h2 class="poppins-regular tw-text-[16px]">Penggu</h2>
-                  <a class="icon-link icon-link-hover tw-underline link-underline-secondary" href="#">
-                    Deskripsi Produk
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                      class="bi bi-arrow-right" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd"
-                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
-                    </svg>
-                  </a>
-                </div>
-                <div class="priceQuantity">
-                  <p class="price">Rp107.000</p>
-                  <div class="quantity">
-                    <button>-</button>
-                    <span>1</span>
-                    <button>+</button>
+                <div class="tw-flex">
+                  <div class="tw-flex tw-flex-col tw-justify-between p-1">
+                    <h2 class="poppins-regular tw-text-[16px]">Penggu</h2>
+                    <div>
+                      <a class="icon-link icon-link-hover tw-underline link-underline-secondary" href="#">
+                        Deskripsi Produk
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-arrow-right" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd"
+                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                        </svg>
+                      </a>
+                    </div>
                   </div>
+
+
+                  <div class="priceQuantity">
+                    <p class="price">Rp107.000</p>
+                    <div class="quantity">
+                      <button>-</button>
+                      <span>1</span>
+                      <button>+</button>
+                    </div>
+                  </div>
+
+
                 </div>
               </div>
             </div>
           </div>
-  
+
           <!--Product 2-->
-          <div class="tw-flex tw-justify-start tw-items-center gap-3">
+          <div class="tw-flex tw-justify-start tw-items-center gap-3 " width="100px">
             <label for="checkbox-product1">
               <input type="checkbox" id="checkbox-product1" name="checkbox-product1" />
             </label>
-            <div class="tw-flex tw-justify-start gap-2" id="product">
-              <img src="./img/loader.gif" class="img-thumbnail tw-rounded-lg" width="120px" height="120px" alt="1" />
+            <div class="tw-flex gap-2" id="product">
+              <div>
+                <img src="./img/loader.gif" width="150px" alt="1" />
+              </div>
               <div class="product-details tw-flex">
-                <div class="">
-                  <h2 class="poppins-regular tw-text-[16px]">Penggu</h2>
-                  <a class="icon-link icon-link-hover tw-underline link-underline-secondary" href="#">
-                    Deskripsi Produk
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                      class="bi bi-arrow-right" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd"
-                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
-                    </svg>
-                  </a>
-                </div>
-                <div class="priceQuantity">
-                  <p class="price">Rp107.000</p>
-                  <div class="quantity">
-                    <button>-</button>
-                    <span>1</span>
-                    <button>+</button>
+                <div class="tw-flex">
+                  <div class="tw-flex tw-flex-col tw-justify-between p-1">
+                    <h2 class="poppins-regular tw-text-[16px]">Penggu</h2>
+                    <div>
+                      <a class="icon-link icon-link-hover tw-underline link-underline-secondary" href="#">
+                        Deskripsi Produk
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                          class="bi bi-arrow-right" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd"
+                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                        </svg>
+                      </a>
+                    </div>
                   </div>
+
+
+                  <div class="priceQuantity">
+                    <p class="price">Rp107.000</p>
+                    <div class="quantity">
+                      <button>-</button>
+                      <span>1</span>
+                      <button>+</button>
+                    </div>
+                  </div>
+
+
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
       <!-- Summary -->
-     <div class="flex-container-box">
-       <h3>Ringkasan Belanja</h3>
-       <div class="summary">
-         <span>Total</span>
-         <span>-</span>
-       </div>
-       <div class="promo">
-         <img src="./img/loader.gif" alt="Promo Icon" />
-         <p>Choose your discount!</p>
-       </div>
-       <button class="btn-buy">Beli</button>
-     </div>
+      <div class="flex-container-box">
+        <h3>Ringkasan Belanja</h3>
+        <div class="summary">
+          <span>Total</span>
+          <span>-</span>
+        </div>
+        <div class="promo">
+          <img src="./img/loader.gif" alt="Promo Icon" />
+          <p>Choose your discount!</p>
+        </div>
+        <button class="btn-buy">Beli</button>
+      </div>
     </div>
   </div>
 
