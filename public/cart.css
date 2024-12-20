@@ -149,7 +149,6 @@ label[for*="checkbox"] {
 
 /* Keranjang */
 .pembungkus-cart {
-  display: flex;
   flex-direction: column;
   gap: 20px;
 }
@@ -160,6 +159,7 @@ label[for*="checkbox"] {
   height: auto;
   padding: 10px;
 }
+
 
 /* Deskripsi */
 .desk{
