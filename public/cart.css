@@ -188,11 +188,13 @@ img{
   background-color: white;
   border: 1px solid #ccc;
   padding: 20px;
-  width: 300px;
+  /* width: 300px; */
   height: auto;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  border-radius: 10px;
   font-family: "Roboto", sans-serif;
+  flex: 1; /* Biarkan elemen ini mengambil lebih banyak ruang */
+  max-width: 400px; /* Sesuaikan lebar maksimum */
 }
 
 .flex-container-box h3 {
@@ -300,15 +302,16 @@ img{
 }
 
 .price {
-  font-size: 18px;
+  font-size: 15px;
   color: #333;
   margin: 0;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 20px;
   background-color: #f9f9f9;
   max-width: 300px;
   margin: 10px auto;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2px 15px;
 }
 
 .quantity {
@@ -328,7 +331,7 @@ img{
   color: white;
   border: none;
   border-radius: 4px;
-  padding: 5px 10px;
+  padding: 20px 20px;
   cursor: pointer;
   font-size: 16px;
   /* transition: background-color 0.3s ease; */
@@ -381,4 +384,22 @@ img{
 /* Styling untuk tombol hapus yang berubah warna menjadi hijau */
 #deleteBtn.green {
   background-color: green;
+}
+
+#popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  background-color: white;
+  padding: 150px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 1000; 
+}
+
+.quantity button{
+  padding: 5px 10px;
+  border-radius: 20px;
 }
