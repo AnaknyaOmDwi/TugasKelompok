@@ -31,7 +31,7 @@
     <div class="pembungkus-cart d-flex">
       <h1 class="fw-bold poppins-regular tw-text-[34px]">Keranjang saya</h1>
       <div class="d-flex gap-5">
-        <div>
+        <div class="d-flex gap-3 flex-column">
           <div class="bar-cart tw-flex tw-justify-between tw-items-center tw-pl-4 tw-pr-4 tw-rounded-lg">
             <div>
               <label for="checkbox-all">
@@ -67,9 +67,12 @@
             <!-- Product 1-->
             <div class="tw-flex tw-justify-between tw-items-center gap-3 " width="100px">
               <div class="tw-flex gap-4" id="product">
-                <label for="checkbox-product1">
-                  <input type="checkbox" id="checkbox-product1" name="checkbox-product1" />
-                </label>
+                <div>
+
+                  <label for="checkbox-product1">
+                    <input type="checkbox" id="checkbox-product1" name="checkbox-product1" />
+                  </label>
+                </div>
                 <div class="product-details tw-flex gap-2">
                   <img src="./img/loader.gif" width="150px" alt="1" />
                   
@@ -103,9 +106,102 @@
             <!-- Product 2 -->
             <div class="tw-flex tw-justify-between tw-items-center gap-3 " width="100px">
               <div class="tw-flex gap-4" id="product">
-                <label for="checkbox-product1">
-                  <input type="checkbox" id="checkbox-product1" name="checkbox-product1" />
-                </label>
+                <div>
+                  <label for="checkbox-product2">
+                    <input type="checkbox" id="checkbox-product2" name="checkbox-product2" />
+                  </label>
+                </div>
+                <div class="product-details tw-flex gap-2">
+                  <img src="./img/loader.gif" width="150px" alt="1" />
+                  
+                    <div class="tw-flex tw-flex-col tw-justify-between p-1">
+                      <h2 class="poppins-regular tw-text-[16px]">Penggu</h2>
+                      <div id="showDescriptionBtn">
+                        <a class="icon-link icon-link-hover tw-underline link-underline-secondary" href="#">
+                          Deskripsi Produk
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
+
+                </div>
+
+              </div>
+              <div class="priceQuantity">
+                <p class="price">Rp107.000</p>
+                <div class="quantity">
+                  <button>-</button>
+                  <span>1</span>
+                  <button>+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cart Items -->
+          <div class="my-cart tw-flex tw-justify-start tw-flex-col gap-4">
+            <!-- Toko 1 -->
+            <div class="toko tw-flex tw-justify-start tw-rounded-lg gap-2">
+              <label for="checkbox-toko2">
+                <input type="checkbox" id="checkbox-toko2" name="checkbox-toko2" />
+              </label>
+              <div class="tw-flex gap-1">
+                <img src="./img/loader.gif" class="tw-rounded-full" width="25px" alt="Toko" />
+                Toko 2
+              </div>
+            </div>
+
+            <!-- Product 1-->
+            <div class="tw-flex tw-justify-between tw-items-center gap-3 " width="100px">
+              <div class="tw-flex gap-4" id="product">
+                <div>
+
+                  <label for="checkbox-product3">
+                    <input type="checkbox" id="checkbox-product3" name="checkbox-product3" />
+                  </label>
+                </div>
+                <div class="product-details tw-flex gap-2">
+                  <img src="./img/loader.gif" width="150px" alt="1" />
+                  
+                    <div class="tw-flex tw-flex-col tw-justify-between p-1">
+                      <h2 class="poppins-regular tw-text-[16px]">Penggu</h2>
+                      <div id="showDescriptionBtn">
+                        <a class="icon-link icon-link-hover tw-underline link-underline-secondary" href="#">
+                          Deskripsi Produk
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
+
+                </div>
+
+              </div>
+              <div class="priceQuantity">
+                <p class="price">Rp107.000</p>
+                <div class="quantity">
+                  <button>-</button>
+                  <span>1</span>
+                  <button>+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="tw-flex tw-justify-between tw-items-center gap-3 " width="100px">
+              <div class="tw-flex gap-4" id="product">
+                <div>
+                  <label for="checkbox-product4">
+                    <input type="checkbox" id="checkbox-product4" name="checkbox-product4" />
+                  </label>
+                </div>
                 <div class="product-details tw-flex gap-2">
                   <img src="./img/loader.gif" width="150px" alt="1" />
                   
@@ -137,6 +233,7 @@
             </div>
           </div>
         </div>
+        
         <!-- Summary -->
         <div class="flex-container-box">
           <h3>Ringkasan Belanja</h3>
