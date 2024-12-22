@@ -18,6 +18,20 @@ router.get("/api/products", (req, res) => {
   });
 });
 
+// Menampilkan Semua Data Toko
+router.get("/api/Toko", (req, res) => {
+  const sql = `SELECT * FROM shop`;
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error("Query Error : ", err);
+      res
+        .status(500)
+        .json({ "status ": 500, error: true, massage: "Query error" });
+    }
+    res.status(200).json({ status: 200, error: false, data: results });
+  });
+});
+
 //Mengedit data check product (true/false)
 router.put("/trproducts/:id", (req, res) => {
   const id = req.params.id;
