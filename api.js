@@ -5,7 +5,6 @@ const cors = require("cors");
 router.use(cors());
 
 // Menampilkan Semua Data Products
-<<<<<<< HEAD
 router.get('/api/products',(req,res)=>{
     const sql = `SELECT a.id, a.product_name, a.product_photo, a.product_price, a.description, a.quantity, a.check_product, a.shop_id, b.shop_name, b.shop_photo, b.check_toko FROM products a JOIN shop b ON a.shop_id = b.id`
     db.query(sql,(err,results)=>{
@@ -17,20 +16,7 @@ router.get('/api/products',(req,res)=>{
     })
     
 })
-=======
-router.get("/api/products", (req, res) => {
-  const sql = `SELECT a.id, a.product_name, a.product_photo, a.product_price, a.description, a.quantity, a.check_product, a.shop_id, b.shop_name, b.shop_photo, b.check_toko FROM products a JOIN shop b ON a.shop_id = b.id;`;
-  db.query(sql, (err, results) => {
-    if (err) {
-      console.error("Query Error : ", err);
-      res
-        .status(500)
-        .json({ "status ": 500, error: true, massage: "Query error" });
-    }
-    res.status(200).json({ status: 200, error: false, data: results });
-  });
-});
->>>>>>> 977ec1b599a3b60cced1fcab33dba93bbd0172ee
+
 
 // Menampilkan Semua Data Toko
 router.get("/api/Toko", (req, res) => {
