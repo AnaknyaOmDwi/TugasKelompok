@@ -141,11 +141,6 @@ label[for*="checkbox"] {
   font-size: 20px;
 }
 
-/* Pemisah Antara Keranjang dan total */
-.pembungkus {
-  align-items: center;
-  gap: 13px;
-}
 
 /* Keranjang */
 .pembungkus-cart {
@@ -176,6 +171,8 @@ label[for*="checkbox"] {
   flex-direction: column;
   gap: 15px; /* Jarak antar elemen */
   margin-top: 3%;
+  align-items: center;
+  gap: 13px;
 
 }
 
