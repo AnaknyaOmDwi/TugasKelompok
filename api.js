@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const db = require(__dirname + '/conn');
+const cors = require('cors');
+router.use(cors());
 
 // Menampilkan Semua Data Products
 router.get('/api/products',(req,res)=>{
-    const sql = `SELECT a.id, a.product_name, a.product_photo, a.product_price, a.desc, a.quantiti, a.check_product, a.shop_id, b.shop_name, b.shop_photo, b.check_toko FROM products a JOIN shop b ;`
+    const sql = `SELECT a.id, a.product_name, a.product_photo, a.product_price, a.description, a.quantity, a.check_product, a.shop_id, b.shop_name, b.shop_photo, b.check_toko FROM products a JOIN shop b ;`
     db.query(sql,(err,results)=>{
         if(err){
             console.error("Query Error : ", err)
