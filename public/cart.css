@@ -184,13 +184,14 @@ img{
   background-color: white;
   border: 1px solid #ccc;
   padding: 20px;
-  /* width: 300px; */
-  height: auto;
+  min-width: 400px;
+  min-height: 440px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   font-family: "Roboto", sans-serif;
   flex: 1; /* Biarkan elemen ini mengambil lebih banyak ruang */
-  max-width: 400px; /* Sesuaikan lebar maksimum */
+  max-width: 550px; /* Sesuaikan lebar maksimum */
+  max-height: 450px;
 }
 
 .flex-container-box h3 {
@@ -280,9 +281,6 @@ img{
   height: 25px;
 }
 
-.product-details{
-  
-}
 
 .nama-product{
   gap: 40rem;
