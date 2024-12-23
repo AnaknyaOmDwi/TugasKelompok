@@ -10,10 +10,10 @@ showDescriptionBtn.addEventListener('click', () => {
 });
 
 // Event listener untuk menutup pop-up jika overlay diklik
-overlay.addEventListener('click', () => {
-    popup.style.display = 'none';
-    overlay.style.display = 'none';
-});
+// overlay.addEventListener('click', () => {
+//     popup.style.display = 'none';
+//     overlay.style.display = 'none';
+// });
 
 // Event listener untuk mengubah warna tombol hapus menjadi hijau saat diklik
 // deleteBtn.addEventListener('click', () => {
@@ -21,6 +21,7 @@ overlay.addEventListener('click', () => {
 //     alert('Tombol hapus telah diklik!');
 // });
 
+const closePopupBtn = document.getElementById('closePopup');
 // Event listener untuk menutup pop-up saat tombol cancel diklik
 closePopupBtn.addEventListener('click', () => {
     popup.style.display = 'none';
@@ -32,14 +33,13 @@ const quantityButtons = document.querySelectorAll('.quantity button');
 quantityButtons.forEach(button => {
     button.addEventListener('click', () => {
         console.log(`Button ${button.textContent} clicked`);
-        const isIncrement = button.textContent === '+';
+        const increment = button.textContent === '+';
         const quantitySpan = button.parentElement.querySelector('span'); 
-        let currentQuantity = parseInt(quantitySpan.textContent, 10); // Ambil nilai kuantitas saat ini
+        let currentQuantity = parseInt(quantitySpan.textContent, 10); 
 
-        // Tambah atau kurangi kuantitas berdasarkan tombol yang diklik
-        if (isIncrement) {
+        if (increment) {
             currentQuantity++;
-        } else if (currentQuantity > 1) { // Pastikan kuantitas tidak kurang dari 1
+        } else if (currentQuantity > 1) { 
             currentQuantity--;
         }
 
@@ -48,5 +48,5 @@ quantityButtons.forEach(button => {
     });
 });
 
-const closePopupBtn = document.getElementById('closePopup');
+
 
