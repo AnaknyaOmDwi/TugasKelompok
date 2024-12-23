@@ -286,6 +286,10 @@ img{
   gap: 40rem;
 }
 
+.product-details > img{
+  border-radius: 30px;
+  border: 1px solid black;
+}
 .priceQuantity {
   display: flex;
   flex-direction: column;
