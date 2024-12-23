@@ -13,7 +13,7 @@ db.connect((err) => {
         console.error('Koneksi kedalam database gagal', err.message);
     } else {
         console.log('Koneksi kedalam database berhasil');
-    }
+    }   
 });
 
 module.exports = db;

@@ -52,37 +52,50 @@ quantityButtons.forEach(button => {
 
 // Tes
 
-async function fetchData() {
+async function fetchDataS() {
     try {
-        const response = await fetch('http://localhost:3000/api/products');
-        const data = await response.json();
-        // tampilkanData(data.data);
-        console.log(data.data)
+        const response = await fetch('http://localhost:3000/api/toko');
+        const dataS = await response.json();
+        tampilkanData(dataS.dataS);
+        console.log(dataS.dataS)
     } catch (error) {
         console.error('Error:', error);
     }
 }
-// async function tampilkanData(data) {
-//     const container = document.getElementById("cart_id"); // Asumsikan ada div dengan id="data-container" sebagai wadah.
 
-//     data.forEach(item => {
-//         // Buat elemen toko
-//         const tokoDiv = document.createElement("div");
-//         tokoDiv.className = "toko tw-flex tw-justify-start tw-rounded-lg gap-2";
+async function fetchDataP() {
+    try {
+        const response = await fetch('http://localhost:3000/api/toko');
+        const dataP = await response.json();
+        tampilkanData(dataP.dataP);
+        console.log(dataP.dataP)
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
 
-//         tokoDiv.innerHTML = `
-//                     <label for="checkbox-toko${item.id}">
-//                 <input type="checkbox" id="checkbox-toko${item.id}" name="checkbox-toko${item.id}" />
-//             </label>
-//             <div class="tw-flex gap-1">
-//                 <img src="${item.shop_photo}" class="tw-rounded-full" width="25px" alt="${item.shop_name}" />
-//                 ${item.shop_name}
-//             </div>
+async function tampilkanData(dataS,dataP) {
+    const container = document.getElementById("cart_id"); // Asumsikan ada div dengan id="data-container" sebagai wadah.
 
-//         `;
+    dataS.forEach(item => {
+        // Buat elemen toko
+        const tokoDiv = document.createElement("div");
+        tokoDiv.className = "toko tw-flex tw-justify-start tw-rounded-lg gap-2";
 
-//         container.appendChild(tokoDiv);
+        tokoDiv.innerHTML = `
+                    <label for="checkbox-toko${item.id}">
+                <input type="checkbox" id="checkbox-toko${item.id}" name="checkbox-toko${item.id}" />
+            </label>
+            <div class="tw-flex gap-1">
+                <img src="${item.shop_photo}" class="tw-rounded-full" width="25px" alt="${item.shop_name}" />
+                ${item.shop_name}
+            </div>
 
+        `;
+
+        container.appendChild(tokoDiv);
+
+        
 //         //  produk dalam toko
 //         // data.forEach(item => {
 //         //     const produkDiv = document.createElement("div");
@@ -125,6 +138,6 @@ async function fetchData() {
         
 //         //     container.appendChild(produkDiv);
 //         // });
-//     });
-// }
+    });
+}
 fetchData();

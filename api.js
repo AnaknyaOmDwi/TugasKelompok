@@ -19,7 +19,7 @@ router.get('/api/products',(req,res)=>{
 
 
 // Menampilkan Semua Data Toko
-router.get("/api/Toko", (req, res) => {
+router.get("/api/toko", (req, res) => {
   const sql = `SELECT * FROM shop`;
   db.query(sql, (err, results) => {
     if (err) {
