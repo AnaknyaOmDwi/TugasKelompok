@@ -1,32 +1,49 @@
-const showDescriptionBtn = document.getElementById('showDescriptionBtn');
-const popup = document.getElementById('popup');
-const overlay = document.getElementById('overlay');
-const deleteBtn = document.getElementById('deleteBtn');
+document.addEventListener('DOMContentLoaded', () => {
+    const showDescriptionBtns = document.querySelectorAll('.showDescriptionBtn');
+    const popup = document.getElementById('popup');
+    const overlay = document.getElementById('overlay');
+    const deleteBtn = document.getElementById('delete-product'); // ID sesuai dengan HTML Anda
 
-// Event listener untuk menampilkan pop-up
-// showDescriptionBtn.addEventListener('click', () => {
-//     popup.style.display = 'block';
-//     overlay.style.display = 'block';
-// });
-
+    // Event listener untuk menampilkan pop-up
+    showDescriptionBtns.forEach((button, index) => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault(); // Hindari refresh halaman akibat klik <a>
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+            console.log(`Deskripsi produk ${index + 1} ditampilkan`);
+        });
+    });
 // Event listener untuk menutup pop-up jika overlay diklik
-// overlay.addEventListener('click', () => {
-//     popup.style.display = 'none';
-//     overlay.style.display = 'none';
-// });
+    if (overlay) {
+        overlay.addEventListener('click', () => {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+    }
+    // Event listener untuk menutup pop-up saat tombol cancel diklik
+    const closePopupBtn = document.getElementById('closePopup');
+    if (closePopupBtn) {
+        closePopupBtn.addEventListener('click', () => {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+    }
+    
+    // Event listener untuk mengubah warna tombol hapus menjadi hijau saat diklik
+    if (deleteBtn) {
+        deleteBtn.addEventListener('click', () => {
+            deleteBtn.classList.add('green');  // Menambahkan kelas 'green' untuk mengubah warna
+            alert('Tombol hapus telah diklik!');
+        });
+    }
 
-// Event listener untuk mengubah warna tombol hapus menjadi hijau saat diklik
-// deleteBtn.addEventListener('click', () => {
-//     deleteBtn.classList.add('green');  // Menambahkan kelas 'green' untuk mengubah warna
-//     alert('Tombol hapus telah diklik!');
-// });
+    // Tambahkan validasi dan event listener lainnya sesuai kebutuhan
+});
 
-const closePopupBtn = document.getElementById('closePopup');
-// Event listener untuk menutup pop-up saat tombol cancel diklik
-// closePopupBtn.addEventListener('click', () => {
-//     popup.style.display = 'none';
-//     overlay.style.display = 'none';
-// });
+
+
+
+
 
 const quantityButtons = document.querySelectorAll('.quantity button');
 
@@ -113,8 +130,8 @@ async function tampilkanData(dataS,dataP) {
                         <img src="${item.product_photo}" width="150px" alt="${item.product_name}" />
                         <div class="tw-flex tw-flex-col tw-justify-between p-1">
                             <h2 class="poppins-regular tw-text-[16px]">${item.product_name}</h2>
-                            <div id="showDescriptionBtn">
-                                <a class="icon-link icon-link-hover tw-underline link-underline-secondary" href="${item.description}">
+                            <div class="showDescriptionBtn">
+                                <a class="icon-link icon-link-hover tw-underline link-underline-secondary" href="">
                                     Deskripsi Produk
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-arrow-right" viewBox="0 0 16 16">
