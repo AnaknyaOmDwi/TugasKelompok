@@ -416,15 +416,3 @@ img{
 .close-btn:hover {
   color: red;
 }
-
-/* .popup {
-  position: relative;
-  padding: 20px;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  width: 300px;
-  margin: auto;
-  text-align: center;
-  display: none; 
-} */
