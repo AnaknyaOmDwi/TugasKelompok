@@ -346,6 +346,10 @@ img{
   color: #333;
 }
 
+.description {
+  white-space: pre-wrap;
+}
+
 .popup {
   display: none;
   position: absolute;

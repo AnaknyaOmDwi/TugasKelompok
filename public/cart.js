@@ -33,9 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //     }
     // });
     // Fungsi untuk melimit teks dan mengelola toggle "lihat selengkapnya"
-    window.onload = function () {
-        toggleTextLimit('comment1', 50);
-    };
     
 });
 
@@ -85,9 +82,10 @@ async function fetchData() {
             fetch('http://localhost:3000/api/toko'),
             fetch('http://localhost:3000/api/products')
         ]);
-
+        
         const dataS = await responseS.json();
         const dataP = await responseP.json();
+        console.log(dataP.data)
 
         if (dataS.data && dataP.data) {
             tampilkanData(dataS.data, dataP.data);
@@ -125,7 +123,6 @@ function toggleTextLimitForAll(selector, maxLength) {
             toggleButton.style.alignItems = 'center';
             toggleButton.setAttribute('data-state', 'collapsed');
 
-            // Tambahkan teks "lihat selengkapnya" dan ikon SVG
             toggleButton.innerHTML = `
                 lihat selengkapnya
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -176,8 +173,7 @@ function toggleTextLimitForAll(selector, maxLength) {
 
 async function tampilkanData(dataS,dataP) {
     const container = document.getElementById("cart_id"); // Asumsikan ada div dengan id="data-container" sebagai wadah.
-
-
+    
     dataS.forEach(item => {
         // Buat elemen toko
         const tokoDiv = document.createElement("div");
@@ -202,10 +198,10 @@ async function tampilkanData(dataS,dataP) {
         produkToko.forEach(item => {
             const produkDiv = document.createElement("div");
             produkDiv.className = "tw-flex tw-justify-between tw-items-center gap-3";
-            
+            const textReplace = item.description.replace(/[\r]+/g, '<br>')  // Ganti \r\n
         
             produkDiv.innerHTML = `
-    <div class="tw-flex gap-4" id="product">
+    <div class="tw-flex gap-4" id="product">    A
         <div>
             <label for="checkbox-product${item.id}">
                 <input type="checkbox" id="checkbox-product${item.id}" name="checkbox-product${item.id}" />
@@ -216,8 +212,7 @@ async function tampilkanData(dataS,dataP) {
             <div class="tw-flex tw-flex-col gap-4 p-1">
                 <h2 class="poppins-regular tw-text-[16px]">${item.product_name}</h2>
                 <div class="description tw-flex tw-flex-col" id="comment1">
-                <p>Deskripsi : 
-                <p> ${item.description} </p>
+                <p> ${textReplace} </p>
                 </div>
             </div>
         </div>
