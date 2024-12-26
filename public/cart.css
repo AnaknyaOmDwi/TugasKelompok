@@ -289,6 +289,7 @@ img{
 .product-details > img{
   border-radius: 30px;
   border: 1px solid black;
+  height: 225px;
 }
 .priceQuantity {
   display: flex;
@@ -389,7 +390,7 @@ img{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -70%);
-  background-color: white;
+  background-color: orange;
   padding: 150px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
