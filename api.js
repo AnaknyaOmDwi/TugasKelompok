@@ -33,47 +33,93 @@ router.get("/api/toko", (req, res) => {
 });
 
 //Mengedit data check product (true/false)
-router.put("/trproducts/:id", (req, res) => {
-  const id = req.params.id;
-  const sql = `UPDATE products SET check_product = '1' WHERE products.id = ?`;
+router.put("/products/:id", (req, res) => {
+  const id = req.params.id; // ID produk yang ingin diperbarui
+  const { check_product } = req.body; // Nilai check_product dari request body
 
-  db.query(sql, id, (err, results) => {
+  // Validasi input untuk memastikan nilai check_product hanya 0 atau 1
+  if (check_product !== 0 && check_product !== 1) {
+    return res.status(400).json({
+      status: 400,
+      error: true,
+      message: "Invalid value for check_product. Must be 0 or 1.",
+    });
+  }
+
+  const sql = `UPDATE products SET check_product = ? WHERE id = ?`;
+
+  db.query(sql, [check_product, id], (err, results) => {
     if (err) {
       console.error("Query Error: ", err);
-      return res
-        .status(500)
-        .json({ status: 500, error: true, message: "Query error" });
-    }
-    res
-      .status(200)
-      .json({
-        status: 200,
-        error: false,
-        message: `Product ${id} Edit Succsess`,
+      return res.status(500).json({
+        status: 500,
+        error: true,
+        message: "Query error",
       });
+    }
+
+    // Jika tidak ada baris yang diperbarui, artinya ID tidak ditemukan
+    if (results.affectedRows === 0) {
+      return res.status(404).json({
+        status: 404,
+        error: true,
+        message: `Product with ID ${id} not found`,
+      });
+    }
+
+    // Respon sukses
+    res.status(200).json({
+      status: 200,
+      error: false,
+      message: `Product ${id} updated successfully`,
+    });
   });
 });
 
-router.put("/flproducts/:id", (req, res) => {
-  const id = req.params.id;
-  const sql = `UPDATE products SET check_product = '0' WHERE products.id = ?`;
+//Mengedit data check product (true/false)
+router.put("/shop/:id", (req, res) => {
+  const id = req.params.id; // ID produk yang ingin diperbarui
+  const { check_toko } = req.body; // Nilai check_toko dari request body
 
-  db.query(sql, id, (err, results) => {
+  // Validasi input untuk memastikan nilai check_toko hanya 0 atau 1
+  if (check_toko !== 0 && check_toko !== 1) {
+    return res.status(400).json({
+      status: 400,
+      error: true,
+      message: "Invalid value for check_toko. Must be 0 or 1.",
+    });
+  }
+
+  const sql = `UPDATE shop SET check_toko = ? WHERE id = ?`;
+
+  db.query(sql, [check_toko, id], (err, results) => {
     if (err) {
       console.error("Query Error: ", err);
-      return res
-        .status(500)
-        .json({ status: 500, error: true, message: "Query error" });
-    }
-    res
-      .status(200)
-      .json({
-        status: 200,
-        error: false,
-        message: `Product ${id} Edit Succsess`,
+      return res.status(500).json({
+        status: 500,
+        error: true,
+        message: "Query error",
       });
+    }
+
+    // Jika tidak ada baris yang diperbarui, artinya ID tidak ditemukan
+    if (results.affectedRows === 0) {
+      return res.status(404).json({
+        status: 404,
+        error: true,
+        message: `Product with ID ${id} not found`,
+      });
+    }
+
+    // Respon sukses
+    res.status(200).json({
+      status: 200,
+      error: false,
+      message: `Shop ${id} updated successfully`,
+    });
   });
 });
+
 
 // Menghapus Data products berdasarkan check product (ture/false)
 router.delete("/products", (req, res) => {

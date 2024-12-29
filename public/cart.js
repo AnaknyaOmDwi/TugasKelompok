@@ -82,7 +82,6 @@ async function fetchData() {
             fetch('http://localhost:3000/api/toko'),
             fetch('http://localhost:3000/api/products')
         ]);
-        
         const dataS = await responseS.json();
         const dataP = await responseP.json();
         console.log(dataP.data)
@@ -169,29 +168,28 @@ function toggleTextLimitForAll(selector, maxLength) {
     });
 }
 
-
-
+// Tampilkan data
 async function tampilkanData(dataS,dataP) {
     const container = document.getElementById("cart_id"); // Asumsikan ada div dengan id="data-container" sebagai wadah.
     
-    dataS.forEach(item => {
+    dataS.forEach(shop => {
         // Buat elemen toko
         const tokoDiv = document.createElement("div");
         tokoDiv.className = "toko tw-flex tw-justify-start tw-rounded-lg gap-2";
 
         tokoDiv.innerHTML = `
-                    <label for="checkbox-toko${item.id}">
-                <input type="checkbox" id="checkbox-toko${item.id}" name="checkbox-toko${item.id}" />
+                    <label for="checkbox-toko${shop.id}">
+                <input type="checkbox" id="checkbox-toko${shop.id}" name="checkbox-toko${shop.id}" />
             </label>
             <div class="tw-flex gap-1">
-                <img src="${item.shop_photo}" class="tw-rounded-full" width="25px" alt="${item.shop_name}" />
-                ${item.shop_name}
+                <img src="${shop.shop_photo}" class="tw-rounded-full" width="25px" alt="${shop.shop_name}" />
+                ${shop.shop_name}
             </div>
 
         `;
         container.appendChild(tokoDiv);
-        getComputedStyle(tokoDiv);
-        const id_toko = item.id
+        const id_toko = shop.id
+        const checkboxShop = tokoDiv.querySelector(`#checkbox-toko${shop.id}`);
 
         //  produk dalam toko
         const produkToko = dataP.filter(product => product.shop_id === id_toko);
@@ -201,10 +199,11 @@ async function tampilkanData(dataS,dataP) {
             const textReplace = item.description.replace(/[\r]+/g, '<br>')  // Ganti \r\n
         
             produkDiv.innerHTML = `
-    <div class="tw-flex gap-4" id="product">    A
+    <div class="tw-flex gap-4" id="product">
         <div>
             <label for="checkbox-product${item.id}">
-                <input type="checkbox" id="checkbox-product${item.id}" name="checkbox-product${item.id}" />
+                <input type="checkbox" id="checkbox-product${item.id}" name="checkbox-product${item.id}" data-product-id="${item.id}" data-shop-id="${item.shop_id}" />
+
             </label>
         </div>
         <div class="product-details tw-flex gap-2">
@@ -226,18 +225,104 @@ async function tampilkanData(dataS,dataP) {
             </div>
         </div>
     `;
-    // <!-- Popup hanya untuk produk ini -->
-    // <div class="popup" id="popup-${item.id}" style="display: none;">
-    //     <button class="closePopup close-btn" data-product-id="${item.id}">x</button>
-    //     <p>${item.description}</p>
-    // </div>
-            if (id_toko === item.shop_id){
-            container.appendChild(produkDiv);
-            const hr = document.createElement("hr");
-            container.appendChild(hr);
-            }
+    const checkboxProduct = produkDiv.querySelector(`#checkbox-product${item.id}`);
+
+   
+    if (checkboxProduct) {
+        checkboxProduct.addEventListener('change', () => {
+            updateCheckProduct(item.id, checkboxProduct.checked);
+            updateShopCheckboxState(id_toko);
+
+
         });
+    }
+    if (checkboxShop) {
+        checkboxShop.addEventListener('change', () => {
+            const isChecked = checkboxShop.checked;
+    
+            // Perbarui status toko di database
+            updateCheckShop(shop.id, isChecked);
+    
+            // Ambil semua checkbox produk dalam toko ini
+            const productCheckboxes = container.querySelectorAll(`[data-shop-id="${id_toko}"]`);
+    
+            productCheckboxes.forEach(checkbox => {
+                if (checkbox.checked !== isChecked) {
+                    checkbox.checked = isChecked;
+                    const productId = checkbox.getAttribute('data-product-id');
+                    console.log("Product ID:", productId); // Debugging
+                    updateCheckProduct(productId, isChecked);
+                }
+            });
+        });
+    }
+    
+    if (id_toko === item.shop_id){
+    container.appendChild(produkDiv);
+    const hr = document.createElement("hr");
+    container.appendChild(hr);
+    }
+});
     });
     toggleTextLimitForAll('.description', 50);
+
 }
+function updateShopCheckboxState(shopId) {
+    const productCheckboxes = document.querySelectorAll(`[data-shop-id="${shopId}"]`);
+    const shopCheckbox = document.querySelector(`#checkbox-toko${shopId}`);
+
+    // Periksa apakah semua checkbox produk dalam toko dicentang
+    const allChecked = Array.from(productCheckboxes).every(checkbox => checkbox.checked);
+
+    if (shopCheckbox) {
+        shopCheckbox.checked = allChecked; // Set status checkbox toko
+        updateCheckShop(shopId, allChecked); // Update status toko di database
+    }
+}
+
+async function updateCheckProduct(productId, isChecked) {
+    try {
+        const response = await fetch(`http://localhost:3000/products/${productId}`, {
+            method: 'PUT', // Gunakan metode PATCH atau PUT
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                check_product: isChecked ? 1 : 0
+            })
+        });
+
+        if (response.ok) {
+            console.log(`Product ID ${productId} updated successfully!`);
+        } else {
+            console.error(`Failed to update Product ID ${productId}`);
+        }
+    } catch (error) {
+        console.error('Error updating product:', error);
+    }
+}
+
+async function updateCheckShop(shopId, isChecked) {
+    try {
+        const response = await fetch(`http://localhost:3000/shop/${shopId}`, {
+            method: 'PUT', // Gunakan metode PATCH atau PUT
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                check_toko: isChecked ? 1 : 0
+            })
+        });
+
+        if (response.ok) {
+            console.log(`Shop ID ${shopId} updated successfully!`);
+        } else {
+            console.error(`Failed to update Product ID ${shopId}`);
+        }
+    } catch (error) {
+        console.error('Error updating product:', error);
+    }
+}
+// Select Check
+
 fetchData()
