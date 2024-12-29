@@ -226,20 +226,22 @@ async function tampilkanData(dataS,dataP) {
         </div>
     `;
     const checkboxProduct = produkDiv.querySelector(`#checkbox-product${item.id}`);
+    //Mencari elemen checkbox untuk produk tertentu di dalam elemen produkDiv berdasarkan ID uniknya (checkbox-product${item.id}).
 
-   
+   //Memastikan elemen checkbox untuk produk (checkboxProduct) ada sebelum menambahkan event listener.
     if (checkboxProduct) {
+        // /Menambahkan event listener untuk menangani perubahan status checkbox produk.
         checkboxProduct.addEventListener('change', () => {
-            updateCheckProduct(item.id, checkboxProduct.checked);
-            updateShopCheckboxState(id_toko);
+            updateCheckProduct(item.id, checkboxProduct.checked);//dipanggil untuk memperbarui status produk di database
+            updateShopCheckboxState(id_toko);//dipanggil untuk memperbarui status checkbox toko sesuai dengan status semua produk dalam toko tersebut.
         });
     }
-    if (checkboxShop) {
+    if (checkboxShop) {//Memastikan elemen checkbox untuk toko (checkboxShop) true sebelum menambahkan event listener.
         checkboxShop.addEventListener('change', () => {
             const isChecked = checkboxShop.checked;
 
             // Perbarui status toko di database
-            updateCheckShop(shop.id, isChecked);
+            updateCheckShop(shop.id, isChecked);//dipanggil untuk memperbarui status toko di database.
 
             // Ambil semua checkbox produk dalam toko ini
             const productCheckboxes = container.querySelectorAll(`[data-shop-id="${id_toko}"]`);
@@ -249,16 +251,16 @@ async function tampilkanData(dataS,dataP) {
                     checkbox.checked = isChecked;
                     const productId = checkbox.getAttribute('data-product-id');
                     console.log("Product ID:", productId); // Debugging
-                    updateCheckProduct(productId, isChecked);
+                    updateCheckProduct(productId, isChecked);//Jika status produk berbeda dari status toko, produk akan diperbarui menggunakan ini
                 }
             });
         });
     }
     
-    if (id_toko === item.shop_id){
-    container.appendChild(produkDiv);
-    const hr = document.createElement("hr");
-    container.appendChild(hr);
+    if (id_toko === item.shop_id){//Memastikan produk yang sedang diproses (item.shop_id) memang milik toko yang sedang ditampilkan (id_toko).
+    container.appendChild(produkDiv);//Menambahkan elemen produk (produkDiv) ke dalam elemen container.
+    const hr = document.createElement("hr");//Membuat elemen horizontal line (<hr>) untuk memisahkan produk atau elemen dalam tampilan.
+    container.appendChild(hr);//Menambahkan elemen horizontal line (<hr>) ke dalam elemen container setelah produk.
     }
 });
     });
@@ -267,26 +269,26 @@ async function tampilkanData(dataS,dataP) {
 }
 
 // Centang Toko
-function updateShopCheckboxState(shopId) {
-    const productCheckboxes = document.querySelectorAll(`[data-shop-id="${shopId}"]`);
+function updateShopCheckboxState(shopId) {//Fungsi untuk memperbarui status checkbox toko berdasarkan status checkbox produk di dalam toko.
+    const productCheckboxes = document.querySelectorAll(`[data-shop-id="${shopId}"]`);//Mencari semua checkbox produk yang terkait dengan toko ([data-shop-id="${shopId}"]).
     const shopCheckbox = document.querySelector(`#checkbox-toko${shopId}`);
 
     // Periksa apakah semua checkbox produk dalam toko dicentang
-    const allChecked = Array.from(productCheckboxes).every(checkbox => checkbox.checked);
+    const allChecked = Array.from(productCheckboxes).every(checkbox => checkbox.checked);//Mengecek apakah semua checkbox produk dicentang.
 
     if (shopCheckbox) {
         shopCheckbox.checked = allChecked; // Set status checkbox toko
-        updateCheckShop(shopId, allChecked); // Update status toko di database
+        updateCheckShop(shopId, allChecked); //Jika semua dicentang, checkbox toko akan dicentang, dan status toko diperbarui di database menggunakan updateCheckShop
     }
 }
 
-const checkboxAll = document.getElementById("checkbox-all");
+const checkboxAll = document.getElementById("checkbox-all");//Mengambil elemen checkbox "Pilih Semua" berdasarkan ID (checkbox-all).
 
-if (checkboxAll) {
+if (checkboxAll) {//Memastikan elemen "Pilih Semua" (checkboxAll) true sebelum menambahkan event listener.
     checkboxAll.addEventListener("change", () => {
         const isChecked = checkboxAll.checked;
 
-        const shopCheckboxes = document.querySelectorAll('input[id^="checkbox-toko"]');
+        const shopCheckboxes = document.querySelectorAll('input[id^="checkbox-toko"]');//Mencari semua checkbox toko berdasarkan ID yang diawali dengan checkbox-toko
         shopCheckboxes.forEach(shopCheckbox => {
             const shopId = shopCheckbox.id.replace('checkbox-toko', '');
             if (!shopId) {
@@ -295,8 +297,9 @@ if (checkboxAll) {
             }
 
             shopCheckbox.checked = isChecked;
-            updateCheckShop(shopId, isChecked);
+            updateCheckShop(shopId, isChecked);//Fungsi untuk memperbarui status toko di database berdasarkan shopId dan status (isChecked).
 
+            //Semua checkbox produk di dalam setiap toko juga diperbarui untuk mencocokkan status toko.
             const productCheckboxes = document.querySelectorAll(`input[data-shop-id="${shopId}"]`);
             productCheckboxes.forEach(productCheckbox => {
                 const productId = productCheckbox.dataset.productId;
@@ -306,12 +309,12 @@ if (checkboxAll) {
                 }
 
                 productCheckbox.checked = isChecked;
-                updateCheckProduct(productId, isChecked);
+                updateCheckProduct(productId, isChecked);//Fungsi untuk memperbarui status produk di database berdasarkan productId dan status (isChecked).
             });
         });
     });
 }
-
+// Fungsi untuk memperbarui status checkbox produk di server
 async function updateCheckProduct(productId, isChecked) {
     try {
         const response = await fetch(`http://localhost:3000/products/${productId}`, {
@@ -333,7 +336,7 @@ async function updateCheckProduct(productId, isChecked) {
         console.error('Error updating product:', error);
     }
 }
-
+// Fungsi untuk memperbarui status checkbox Shop di server
 async function updateCheckShop(shopId, isChecked) {
     try {
         const response = await fetch(`http://localhost:3000/shop/${shopId}`, {
@@ -355,7 +358,6 @@ async function updateCheckShop(shopId, isChecked) {
         console.error('Error updating product:', error);
     }
 }
-// Select Check
 
 
 
