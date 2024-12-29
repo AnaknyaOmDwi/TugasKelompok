@@ -232,17 +232,15 @@ async function tampilkanData(dataS,dataP) {
         checkboxProduct.addEventListener('change', () => {
             updateCheckProduct(item.id, checkboxProduct.checked);
             updateShopCheckboxState(id_toko);
-
-
         });
     }
     if (checkboxShop) {
         checkboxShop.addEventListener('change', () => {
             const isChecked = checkboxShop.checked;
-    
+
             // Perbarui status toko di database
             updateCheckShop(shop.id, isChecked);
-    
+
             // Ambil semua checkbox produk dalam toko ini
             const productCheckboxes = container.querySelectorAll(`[data-shop-id="${id_toko}"]`);
     
@@ -267,6 +265,8 @@ async function tampilkanData(dataS,dataP) {
     toggleTextLimitForAll('.description', 50);
 
 }
+
+// Centang Toko
 function updateShopCheckboxState(shopId) {
     const productCheckboxes = document.querySelectorAll(`[data-shop-id="${shopId}"]`);
     const shopCheckbox = document.querySelector(`#checkbox-toko${shopId}`);
@@ -278,6 +278,38 @@ function updateShopCheckboxState(shopId) {
         shopCheckbox.checked = allChecked; // Set status checkbox toko
         updateCheckShop(shopId, allChecked); // Update status toko di database
     }
+}
+
+const checkboxAll = document.getElementById("checkbox-all");
+
+if (checkboxAll) {
+    checkboxAll.addEventListener("change", () => {
+        const isChecked = checkboxAll.checked;
+
+        const shopCheckboxes = document.querySelectorAll('input[id^="checkbox-toko"]');
+        shopCheckboxes.forEach(shopCheckbox => {
+            const shopId = shopCheckbox.id.replace('checkbox-toko', '');
+            if (!shopId) {
+                console.error("Shop ID is undefined for checkbox:", shopCheckbox);
+                return;
+            }
+
+            shopCheckbox.checked = isChecked;
+            updateCheckShop(shopId, isChecked);
+
+            const productCheckboxes = document.querySelectorAll(`input[data-shop-id="${shopId}"]`);
+            productCheckboxes.forEach(productCheckbox => {
+                const productId = productCheckbox.dataset.productId;
+                if (!productId) {
+                    console.error("Product ID is undefined for checkbox:", productCheckbox);
+                    return;
+                }
+
+                productCheckbox.checked = isChecked;
+                updateCheckProduct(productId, isChecked);
+            });
+        });
+    });
 }
 
 async function updateCheckProduct(productId, isChecked) {
@@ -324,5 +356,7 @@ async function updateCheckShop(shopId, isChecked) {
     }
 }
 // Select Check
+
+
 
 fetchData()
