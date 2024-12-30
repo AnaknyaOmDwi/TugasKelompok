@@ -88,12 +88,25 @@ async function fetchData() {
 
         if (dataS.data && dataP.data) {
             tampilkanData(dataS.data, dataP.data);
+            updateSelectAllCheckbox(dataS.data, dataP.data);
         } else {
             console.error('Error: Data format is incorrect');
         }
     } catch (error) {
         console.error('Error:', error);
     }
+}
+
+function updateSelectAllCheckbox(dataS, dataP) {
+    const checkboxAll = document.getElementById("checkbox-all");
+    if (!checkboxAll) return;
+
+    // Periksa apakah semua toko dan produk dicentang
+    const allShopsChecked = dataS.every(shop => shop.check_toko === 1);
+    const allProductsChecked = dataP.every(product => product.check_product === 1);
+
+    // Jika semua toko dan produk dicentang, centang checkbox "Pilih Semua"
+    checkboxAll.checked = allShopsChecked && allProductsChecked;
 }
 
 function toggleTextLimitForAll(selector, maxLength) {
@@ -191,6 +204,8 @@ async function tampilkanData(dataS,dataP) {
         const id_toko = shop.id
         const checkboxShop = tokoDiv.querySelector(`#checkbox-toko${shop.id}`);
 
+        checkboxShop.checked = shop.check_toko === 1;
+
         //  produk dalam toko
         const produkToko = dataP.filter(product => product.shop_id === id_toko);
         produkToko.forEach(item => {
@@ -228,6 +243,8 @@ async function tampilkanData(dataS,dataP) {
     const checkboxProduct = produkDiv.querySelector(`#checkbox-product${item.id}`);
     //Mencari elemen checkbox untuk produk tertentu di dalam elemen produkDiv berdasarkan ID uniknya (checkbox-product${item.id}).
 
+    checkboxProduct.checked = item.check_product === 1;
+
    //Memastikan elemen checkbox untuk produk (checkboxProduct) ada sebelum menambahkan event listener.
     if (checkboxProduct) {
         // /Menambahkan event listener untuk menangani perubahan status checkbox produk.
@@ -250,7 +267,7 @@ async function tampilkanData(dataS,dataP) {
                 if (checkbox.checked !== isChecked) {
                     checkbox.checked = isChecked;
                     const productId = checkbox.getAttribute('data-product-id');
-                    console.log("Product ID:", productId); // Debugging
+                    // console.log("Product ID:", productId); // Debugging
                     updateCheckProduct(productId, isChecked);//Jika status produk berbeda dari status toko, produk akan diperbarui menggunakan ini
                 }
             });
