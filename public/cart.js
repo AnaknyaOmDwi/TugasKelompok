@@ -2,7 +2,7 @@
 // const showDescriptionBtns = document.querySelectorAll('.showDescriptionBtn');
 // const popup = document.getElementById('popup');
 // const overlay = document.getElementById('overlay');
-const deleteBtn = document.getElementById('delete-product'); // ID sesuai dengan HTML Anda
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('cart_id');
@@ -38,12 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // Event listener untuk mengubah warna tombol hapus menjadi hijau saat diklik
-if (deleteBtn) {
-    deleteBtn.addEventListener('click', () => {
-        deleteBtn.classList.add('green');  // Menambahkan kelas 'green' untuk mengubah warna
-        alert('Tombol hapus telah diklik!');
-    });
-}
 
 // Tambahkan validasi dan event listener lainnya sesuai kebutuhan
 
@@ -331,6 +325,39 @@ if (checkboxAll) {//Memastikan elemen "Pilih Semua" (checkboxAll) true sebelum m
         });
     });
 }
+
+// const deleteProduct = document.getElementById("delete-product")
+const deleteButton = document.getElementById('delete-product');
+if (deleteButton) {
+    deleteButton.addEventListener('click', () => {
+      deleteButton.classList.add('green');
+      isChecked = true// Mengambil status checkbox
+      Delete(isChecked);
+    });
+  }
+async function Delete(isChecked) {
+    try {
+        const response = await fetch(`http://localhost:3000/products`, {
+            method: 'DELETE', // Gunakan metode PATCH atau PUT
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                check_product: isChecked ? 1 : 0
+            })
+        });
+
+        if (response.ok) {
+            console.log(`Product Deleted successfully!`);
+            location.reload();
+        } else {
+            console.error(`Failed to Delete Product`);
+        }
+    } catch (error) {
+        console.error('Error Deleting product:', error);
+    }
+}
+
 // Fungsi untuk memperbarui status checkbox produk di server
 async function updateCheckProduct(productId, isChecked) {
     try {

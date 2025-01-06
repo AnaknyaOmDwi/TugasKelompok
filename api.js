@@ -123,7 +123,7 @@ router.put("/shop/:id", (req, res) => {
 
 // Menghapus Data products berdasarkan check product (ture/false)
 router.delete("/products", (req, res) => {
-  const sql = `INSERT INTO deletehistory (id, product_name, product_photo, product_price, description, shop_id, check_product, quantity) SELECT id, product_name, product_photo, product_price, description, shop_id, 0 AS check_product, quantity FROM products WHERE check_product = 1; DELETE FROM products WHERE check_product = 1;`;
+  const sql = `DELETE FROM products WHERE check_product = 1; DELETE FROM shop WHERE check_toko = 1;`;
 
   db.query(sql, (err, results) => {
     if (err) {
