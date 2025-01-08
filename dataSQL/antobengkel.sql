@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Des 2024 pada 16.06
+-- Waktu pembuatan: 08 Jan 2025 pada 10.29
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -20,23 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `antobengkel`
 --
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `deletehistory`
---
-
-CREATE TABLE `deletehistory` (
-  `id` int(11) NOT NULL,
-  `product_name` varchar(255) NOT NULL,
-  `product_photo` varchar(255) NOT NULL,
-  `product_price` int(11) NOT NULL,
-  `description` text NOT NULL,
-  `shop_id` int(11) NOT NULL,
-  `check_product` tinyint(1) NOT NULL DEFAULT 0,
-  `quantity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -60,10 +43,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `product_name`, `product_photo`, `product_price`, `description`, `shop_id`, `check_product`, `quantity`) VALUES
-(1, 'Topi Imlek Chinese Hat Dewasa', 'https://down-id.img.susercontent.com/file/sg-11134201-23020-zhp8lm9op5mv1c.webp', '35', 'Deskripsi Produk：\r\nMaterial : Kain\r\nWarna：black red \r\nTersedia dalam Ukuran : Dewasa \r\nTerdapat kepangan rambut di bagian belakang\r\nTidak Terdapat Janggut seperti di foto', 2, 0, 1),
-(2, 'Kupluk Rajut Masker Ninja Nyaman dan Adem', 'https://down-id.img.susercontent.com/file/sg-11134201-7rdya-lxfbljmatrii80@resize_w450_nl.webp', '55', 'Deskripsi Produk :\r\nMaterial Jenis Bahan Rajut Woll Berkualitas\r\nUkuran Onesize Bundar Kepala 45 - 56 Cm\r\nPemakaian Fashion Style Pria Dan Wanita Unisex\r\nBarang Realpict Sesuai Pesanan (Garansi Uang Kembali)\r\njangan digunakan untuk maling :)', 2, 0, 1),
-(3, 'KAOS RUSDI TOP COLLECTION HITAM KAOS DISTRO PRIA', 'https://down-id.img.susercontent.com/file/sg-11134201-7rdy4-m014y1eg90gzee@resize_w450_nl.webp', '66', 'Deskripsi Produk :\r\nMaterial - Cotton combed 30S - Sablon DTF\r\n————————————————— \r\nPengiriman Senin - Sabtu pukul 20.00 WIB\r\nMinggu : Tidak ada pengiriman\r\n————————————————— \r\nStock sesuai etalase.\r\n————————————————— \r\nNB. - Tidak dapat ganti size setelah pesanan diproses - Mohon untuk mengisi nama jelas (Nama, Alamat lengkap, No rumah, RT, RW, Kec. Kab/Kota, patokan rumah, No HP yang dapat dihubungi) - Tidak menerima penukaran barang/pengembalian dana kecuali kesalahan dari kami - Pengajuan komplain pesanan max 3 hari setelah paket diterima disertakan unboxing paket.', 2, 0, 1),
-(4, 'Kaos Botak Cs FF', 'https://down-id.img.susercontent.com/file/sg-11134201-7rccd-lqvob1iyzi6q52@resize_w450_nl.webp', '55', 'SEGALA COMPLAINAN WAJIB MENYERTAKAN VIDEO UNBOXING !!!\r\n \r\nSEBELUM CHECKOUT HARAP MELIHAT BAGAN UKURAN LD TERLEBIH DAHULU\r\nJANGAN SAMPAI SALAH UKURAN !!!\r\nKARENA SETIAP BAHAN KAOS ITU BERBEDA2 UKURAN LD-NYA\r\n \r\nKITA JUGA MENERIMA REQUEST UNTUK : \r\n \r\n- KAOS LENGAN PANJANG \r\n- KAOS MANSET\r\n- KAOS COTTON COMBED 20S & 24S & 30S \r\n- KAOS OVERSIZE COTTON COMBED 24S\r\n- HOODIE \r\n- CREWNECK/SWEATER\r\n- TOPI \r\n \r\nBAHAN KAOS :\r\n- TC COMBED 30s & Oversize 24s\r\n- GAMBAR 100% SESUAI FOTO (ALIAS REAL PICT) \r\n- NYAMAN DI PAKAI SEHARI2', 2, 0, 1),
+(1, 'Topi Imlek Chinese Hat Dewasa', 'https://down-id.img.susercontent.com/file/sg-11134201-23020-zhp8lm9op5mv1c.webp', '35.000', 'Deskripsi Produk：\r\nMaterial : Kain\r\nWarna：black red \r\nTersedia dalam Ukuran : Dewasa \r\nTerdapat kepangan rambut di bagian belakang\r\nTidak Terdapat Janggut seperti di foto', 2, 0, 1),
+(2, 'Kupluk Rajut Masker Ninja Nyaman dan Adem', 'https://down-id.img.susercontent.com/file/sg-11134201-7rdya-lxfbljmatrii80@resize_w450_nl.webp', '55.000', 'Deskripsi Produk :\r\nMaterial Jenis Bahan Rajut Woll Berkualitas\r\nUkuran Onesize Bundar Kepala 45 - 56 Cm\r\nPemakaian Fashion Style Pria Dan Wanita Unisex\r\nBarang Realpict Sesuai Pesanan (Garansi Uang Kembali)\r\njangan digunakan untuk maling :)', 2, 0, 1),
+(3, 'KAOS RUSDI TOP COLLECTION HITAM KAOS DISTRO PRIA', 'https://down-id.img.susercontent.com/file/sg-11134201-7rdy4-m014y1eg90gzee@resize_w450_nl.webp', '66.000', 'Deskripsi Produk :\r\nMaterial - Cotton combed 30S - Sablon DTF\r\n————————————————— \r\nPengiriman Senin - Sabtu pukul 20.00 WIB\r\nMinggu : Tidak ada pengiriman\r\n————————————————— \r\nStock sesuai etalase.\r\n————————————————— \r\nNB. - Tidak dapat ganti size setelah pesanan diproses - Mohon untuk mengisi nama jelas (Nama, Alamat lengkap, No rumah, RT, RW, Kec. Kab/Kota, patokan rumah, No HP yang dapat dihubungi) - Tidak menerima penukaran barang/pengembalian dana kecuali kesalahan dari kami - Pengajuan komplain pesanan max 3 hari setelah paket diterima disertakan unboxing paket.', 2, 0, 1),
+(4, 'Kaos Botak Cs FF', 'https://down-id.img.susercontent.com/file/sg-11134201-7rccd-lqvob1iyzi6q52@resize_w450_nl.webp', '55.000', 'SEGALA COMPLAINAN WAJIB MENYERTAKAN VIDEO UNBOXING !!!\r\n \r\nSEBELUM CHECKOUT HARAP MELIHAT BAGAN UKURAN LD TERLEBIH DAHULU\r\nJANGAN SAMPAI SALAH UKURAN !!!\r\nKARENA SETIAP BAHAN KAOS ITU BERBEDA2 UKURAN LD-NYA\r\n \r\nKITA JUGA MENERIMA REQUEST UNTUK : \r\n \r\n- KAOS LENGAN PANJANG \r\n- KAOS MANSET\r\n- KAOS COTTON COMBED 20S & 24S & 30S \r\n- KAOS OVERSIZE COTTON COMBED 24S\r\n- HOODIE \r\n- CREWNECK/SWEATER\r\n- TOPI \r\n \r\nBAHAN KAOS :\r\n- TC COMBED 30s & Oversize 24s\r\n- GAMBAR 100% SESUAI FOTO (ALIAS REAL PICT) \r\n- NYAMAN DI PAKAI SEHARI2', 2, 0, 1),
 (5, 'Kaos Ambalabu - Jomok JMK48', 'https://down-id.img.susercontent.com/file/sg-11134201-7rdxb-m1jlbw2rxpag4e@resize_w450_nl.webp', '35.000', 'SEGALA COMPLAINAN WAJIB MENYERTAKAN VIDEO UNBOXING !!!\r\n \r\nSEBELUM CHECKOUT HARAP MELIHAT BAGAN UKURAN LD TERLEBIH DAHULU\r\nJANGAN SAMPAI SALAH UKURAN !!!\r\nKARENA SETIAP BAHAN KAOS ITU BERBEDA2 UKURAN LD-NYA\r\n \r\nKITA JUGA MENERIMA REQUEST UNTUK : \r\n \r\n- KAOS LENGAN PANJANG \r\n- KAOS MANSET\r\n- KAOS COTTON COMBED 20S & 24S & 30S \r\n- KAOS OVERSIZE COTTON COMBED 24S\r\n- HOODIE \r\n- CREWNECK/SWEATER\r\n- TOPI \r\n \r\nBAHAN KAOS :\r\n- TC COMBED 30s\r\n- GAMBAR 100% SESUAI FOTO (ALIAS REAL PICT) \r\n- NYAMAN DI PAKAI SEHARI2\r\n \r\nSPESIFIKASI PRODUK :\r\n \r\n- SABLON MENGGUNAKAN SABLON DTF PREMIUM ( DIGITAL TRANSFER FILM )\r\n- STOK SELALU READY\r\n- TOKO DIJAMIN AMANAH\r\n- KHUSUS YANG COD, HARAP KAKAK JUGA AMANAH MENERIMA DAN MEMBAYAR PAKET YG TELAH DATANG\r\n- HARAP MEMBERIKAN PENILAIAN BINTANG 5, AGAR KAMI TERUS BISA SEMANGAT MELAYANI PESANAN KAKAK2\r\n- KITA SELALU MENERIMA MASUKAN DARI KAKAK2 , BISA LANGSUNG CHAT ADMIN YA\r\n \r\n \r\n \r\n- SEMOGA SELALU BERKAH BUAT KITA SEMUA -\r\n \r\n \r\nHARGA TERSEBUT ADALAH HARGA SATUAN\r\nBARANG YANG KAMI KIRIM SELALU KITA CHECKING AGAR TIDAK TERJADI KEKELIRUAN BAIK MOTIF MAUPUN SIZE NYA \r\n \r\n \r\nTERIMA KASIH TELAH MEMILIH TOKO KAMI\r\nHAPPY SHOOPING\r\n \r\nLOOKS DIFFERENT,KEEP COOL', 2, 0, 1),
 (6, 'Mesin pemotong rumput S8000', 'https://down-id.img.susercontent.com/file/id-11134207-7r98r-lzycsxrew3c850@resize_w450_nl.webp', '11.000.000', 'Mesin pemotong rumput s8000\r\ntenaga kerja otomatis', 1, 0, 1),
 (7, 'Kapal Sampah A80', 'https://down-id.img.susercontent.com/file/id-11134207-7r98t-m0a92xfe72g08d.webp', '100.000.000', 'Kapal Angkasa Sampah A80 Adudu', 1, 0, 1),
@@ -122,13 +105,6 @@ INSERT INTO `shop` (`id`, `shop_name`, `shop_photo`, `check_toko`) VALUES
 --
 
 --
--- Indeks untuk tabel `deletehistory`
---
-ALTER TABLE `deletehistory`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `shop_id` (`shop_id`) USING BTREE;
-
---
 -- Indeks untuk tabel `products`
 --
 ALTER TABLE `products`
@@ -152,12 +128,6 @@ ALTER TABLE `shop`
 --
 
 --
--- AUTO_INCREMENT untuk tabel `deletehistory`
---
-ALTER TABLE `deletehistory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT untuk tabel `products`
 --
 ALTER TABLE `products`
@@ -178,12 +148,6 @@ ALTER TABLE `shop`
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
-
---
--- Ketidakleluasaan untuk tabel `deletehistory`
---
-ALTER TABLE `deletehistory`
-  ADD CONSTRAINT `deletehistory_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `products`
