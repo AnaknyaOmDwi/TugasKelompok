@@ -421,3 +421,11 @@ img{
 .close-btn:hover {
   color: red;
 }
+
+.judul{
+  max-width: 68%;
+}
+
+.relod{
+  cursor: pointer
+}

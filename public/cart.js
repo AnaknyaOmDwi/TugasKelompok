@@ -337,7 +337,7 @@ if (deleteButton) {
   }
 async function Delete(isChecked) {
     try {
-        const response = await fetch(`http://localhost:3000/products`, {
+        const response = await fetch(`http://localhost:3000/api/products`, {
             method: 'DELETE', // Gunakan metode PATCH atau PUT
             headers: {
                 'Content-Type': 'application/json'
@@ -361,7 +361,7 @@ async function Delete(isChecked) {
 // Fungsi untuk memperbarui status checkbox produk di server
 async function updateCheckProduct(productId, isChecked) {
     try {
-        const response = await fetch(`http://localhost:3000/products/${productId}`, {
+        const response = await fetch(`http://localhost:3000/api/products/${productId}`, {
             method: 'PUT', // Gunakan metode PATCH atau PUT
             headers: {
                 'Content-Type': 'application/json'
@@ -383,7 +383,7 @@ async function updateCheckProduct(productId, isChecked) {
 // Fungsi untuk memperbarui status checkbox Shop di server
 async function updateCheckShop(shopId, isChecked) {
     try {
-        const response = await fetch(`http://localhost:3000/shop/${shopId}`, {
+        const response = await fetch(`http://localhost:3000/api/shop/${shopId}`, {
             method: 'PUT', // Gunakan metode PATCH atau PUT
             headers: {
                 'Content-Type': 'application/json'
@@ -400,6 +400,32 @@ async function updateCheckShop(shopId, isChecked) {
         }
     } catch (error) {
         console.error('Error updating product:', error);
+    }
+}
+
+const relod = document.getElementById('relod');
+if (relod){
+    relod.addEventListener('click',()=>{
+        relodall()
+    })
+}
+
+async function relodall() {
+    try{
+        const response = await fetch(`http://localhost:3000/api/relodall`,{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        });
+        if (response.ok){
+            console.log(`Success Reloading`)
+            location.reload();
+        } else {
+            console.error(`Error Reloading`);
+        }
+    } catch (error) {
+        console.error('Error reloading : ',error)
     }
 }
 

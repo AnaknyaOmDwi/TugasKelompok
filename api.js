@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const db = require(__dirname + "/conn");
+const fs = require('fs'); 
 const cors = require("cors");
 router.use(cors());
 
 // Menampilkan Semua Data Products
-router.get('/api/products',(req,res)=>{
+router.get('/products',(req,res)=>{
     const sql = `SELECT a.id, a.product_name, a.product_photo, a.product_price, a.description, a.quantity, a.check_product, a.shop_id, b.shop_name, b.shop_photo, b.check_toko FROM products a JOIN shop b ON a.shop_id = b.id`
     db.query(sql,(err,results)=>{
         if(err){
@@ -19,7 +20,7 @@ router.get('/api/products',(req,res)=>{
 
 
 // Menampilkan Semua Data Toko
-router.get("/api/toko", (req, res) => {
+router.get("/toko", (req, res) => {
   const sql = `SELECT * FROM shop`;
   db.query(sql, (err, results) => {
     if (err) {
@@ -120,6 +121,26 @@ router.put("/shop/:id", (req, res) => {
   });
 });
 
+//Relod Database
+router.post('/relodall',(req,res)=>{
+  // Drop dan Create Database baru
+  const databasepath = './dataSQL/antobengkel.sql'
+  const databasesql = fs.readFileSync(databasepath, 'utf8');
+  const sqldropdb = `DROP DATABASE antobengkel; CREATE DATABASE antobengkel; USE antobengkel; ${databasesql}`
+  db.query(sqldropdb,(err)=>{
+    if (err){
+      console.error('Gagal drop, create dan import Database : ',err)
+      return res.status(500).json({error:'Gagal membuat ulang database'})
+    }
+
+    res.status(200).json({
+      status: 200,
+      error: false,
+      message: `Database Berhasil relod`,
+    });
+  })
+})
+
 
 // Menghapus Data products berdasarkan check product (ture/false)
 router.delete("/products", (req, res) => {
@@ -154,5 +175,8 @@ router.delete("/history", (req, res) => {
       .json({ status: 200, error: false, message: "History Deleted Succsess" });
   });
 });
+
+//Relod DataBase
+router.post('/')
 
 module.exports = router;

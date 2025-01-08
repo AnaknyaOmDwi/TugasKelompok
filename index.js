@@ -6,7 +6,7 @@ const main = require(__dirname+'/main')
 app.use(express.static('public'));
 app.use(express.json())
 
-app.use(api)
+app.use('/api',api)
 app.use(main)
 
 
