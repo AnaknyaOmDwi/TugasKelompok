@@ -71,7 +71,7 @@ quantityButtons.forEach(button => {
 // Tes
 
 async function fetchData() {
-    try {
+    try { 
         const [responseS, responseP] = await Promise.all([
             fetch('http://localhost:3000/api/toko'),
             fetch('http://localhost:3000/api/products')
@@ -393,8 +393,8 @@ async function updateCheckShop(shopId, isChecked) {
             })
         });
 
-        if (response.ok) {
-            console.log(`Shop ID ${shopId} updated successfully!`);
+        if (response.ok) {  
+            console.log(`Shop ID ${shopId} updated successfully!`); 
         } else {
             console.error(`Failed to update Product ID ${shopId}`);
         }
