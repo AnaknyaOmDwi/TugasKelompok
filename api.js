@@ -77,6 +77,92 @@ router.put("/products/:id", (req, res) => {
   });
 });
 
+//Mengedit data quantity dan price product (true/false)
+router.put("/product/:id", (req, res) => {
+  const id = req.params.id; // ID produk yang ingin diperbarui
+  const { quantity } = req.body; // Nilai quantity dari request body
+
+  // Validasi input
+  if (!quantity || typeof quantity !== "number" || quantity < 1) {
+    return res.status(400).json({
+      status: 400,
+      error: true,
+      message: "Invalid input: quantity must be a number greater than or equal to 1",
+    });
+  }
+
+  // Query untuk mendapatkan harga satuan produk dan quantity lama berdasarkan ID
+  const getDetailsSql = `SELECT product_price, quantity AS old_quantity FROM products WHERE id = ?`;
+  db.query(getDetailsSql, [id], (err, results) => {
+    if (err) {
+      console.error("Query Error: ", err);
+      return res.status(500).json({
+        status: 500,
+        error: true,
+        message: "Internal server error: Unable to fetch product details",
+      });
+    }
+
+    // Jika produk tidak ditemukan
+    if (results.length === 0) {
+      return res.status(404).json({
+        status: 404,
+        error: true,
+        message: `Product with ID ${id} not found`,
+      });
+    }
+
+    // Ambil harga satuan dan quantity lama dari hasil query
+    const unitPrice = results[0].product_price;
+    const oldQuantity = results[0].old_quantity;
+
+    // Hitung selisih quantity dan total harga baru
+    const newTotalPrice = (unitPrice/oldQuantity) * quantity;
+
+
+    // Query untuk memperbarui quantity dan total harga
+    const updateSql = `UPDATE products SET quantity = ?, product_price = ? WHERE id = ?`;
+    db.query(updateSql, [quantity, newTotalPrice, id], (updateErr, updateResults) => {
+      if (updateErr) {
+        console.error("Update Error: ", updateErr);
+        return res.status(500).json({
+          status: 500,
+          error: true,
+          message: "Internal server error: Unable to update product",
+        });
+      }
+
+      // Jika tidak ada baris yang diperbarui, artinya ID tidak ditemukan
+      if (updateResults.affectedRows === 0) {
+        return res.status(404).json({
+          status: 404,
+          error: true,
+          message: `Product with ID ${id} not found`,
+        });
+      }
+
+      // Respon sukses
+      res.status(200).json({
+        status: 200,
+        error: false,
+        message: `Product ${id} updated successfully`,
+        data: {
+          id,
+          old_quantity: oldQuantity,
+          new_quantity: quantity,
+          unit_price: unitPrice,
+          total_price: newTotalPrice,
+        },
+      });
+    });
+  });
+});
+
+
+
+
+
+
 //Mengedit data check product (true/false)
 router.put("/shop/:id", (req, res) => {
   const id = req.params.id; // ID produk yang ingin diperbarui

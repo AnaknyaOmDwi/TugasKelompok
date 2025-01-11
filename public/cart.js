@@ -226,14 +226,97 @@ async function tampilkanData(dataS,dataP) {
         </div>
         </div>
         <div class="priceQuantity">
-            <p class="price">${item.product_price}</p>
+            <p class="price">Rp.${item.product_price.toLocaleString()}</p>
             <div class="quantity">
-                <button>-</button>
+                <button id="decrement-btn">-</button>
                 <span>${item.quantity}</span>
-                <button>+</button>
+                <button id="increment-btn">+</button>
             </div>
         </div>
     `;
+
+    produkDiv.querySelector(`#increment-btn`).addEventListener('click', async () => {
+        try {
+            // Tambahkan kuantitas
+            item.quantity += 1;
+    
+            // Hitung total harga berdasarkan kuantitas baru
+            const totalPrice = item.product_price * item.quantity   
+            console.log(item.product_price);
+            console.log(item.quantity);
+
+            console.log(totalPrice);
+    
+            // Perbarui tampilan kuantitas dan harga total di UI
+            produkDiv.querySelector('.quantity span').textContent = item.quantity;
+            produkDiv.querySelector('.priceQuantity p').textContent = `Rp ${totalPrice.toLocaleString()}`;
+    
+            // Kirim permintaan ke server untuk memperbarui kuantitas dan total harga
+            const response = await fetch(`http://localhost:3000/api/product/${item.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    quantity: item.quantity, // Kirim kuantitas baru
+                    total_price: totalPrice // Kirim total harga baru
+                })
+            });
+    
+            if (response.ok) {
+                console.log(`Quantity updated successfully for Product ID ${item.id}`);
+            } else {
+                console.error(`Failed to update quantity for Product ID ${item.id}`);
+            }
+        } catch (error) {
+            console.error('Error updating quantity:', error);
+        }
+    });
+    
+
+    produkDiv.querySelector(`#decrement-btn`).addEventListener('click', async () => {
+        try {
+            if (item.quantity > 1) { // Validasi agar tidak berkurang di bawah 1
+                // Kurangi kuantitas di tampilan
+                item.quantity -= 1;
+    
+                // Hitung total harga berdasarkan kuantitas baru
+                const totalPrice = item.product_price * item.quantity;
+                console.log(`Price: ${item.product_price}, Quantity: ${item.quantity}, Total: ${totalPrice}`);
+    
+                // Perbarui kuantitas dan harga total di tampilan
+                produkDiv.querySelector('.quantity span').textContent = item.quantity;
+                produkDiv.querySelector('.priceQuantity p').textContent = `Rp ${totalPrice.toLocaleString()}`;
+    
+                // Kirim permintaan ke server untuk memperbarui kuantitas
+                const response = await fetch(`http://localhost:3000/api/product/${item.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        quantity: item.quantity, // Kirim nilai baru
+                        total_price: totalPrice
+                    })
+                });
+    
+                if (response.ok) {
+                    console.log(`Quantity decremented successfully for Product ID ${item.id}`);
+                } else {
+                    console.error(`Failed to decrement quantity for Product ID ${item.id}`);
+                }
+            } else {
+                console.warn("Quantity cannot be less than 1."); // Pesan peringatan jika user mencoba mengurangi kuantitas di bawah 1
+            }
+        } catch (error) {
+            console.error('Error decrementing quantity:', error);
+        }
+    });
+    
+
+
+
+
     const checkboxProduct = produkDiv.querySelector(`#checkbox-product${item.id}`);
     //Mencari elemen checkbox untuk produk tertentu di dalam elemen produkDiv berdasarkan ID uniknya (checkbox-product${item.id}).
 
