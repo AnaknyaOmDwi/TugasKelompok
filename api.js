@@ -18,6 +18,17 @@ router.get('/products',(req,res)=>{
     
 })
 
+router.get('/products/check',(req,res)=>{
+  const sql = `SELECT a.id, a.product_name, a.product_photo, a.product_price, a.description, a.quantity, a.check_product, a.shop_id, b.shop_name, b.shop_photo, b.check_toko FROM products a JOIN shop b ON a.shop_id = b.id WHERE a.check_product = 1;`
+  db.query(sql,(err,results)=>{
+      if(err){
+          console.error("Query Error : ", err)
+          res.status(500).json({"status " : 500, "error": true, "massage": "Query error"})
+      }
+      res.status(200).json({ "status": 200, "error": false, "data": results });
+  })
+  
+})
 
 // Menampilkan Semua Data Toko
 router.get("/toko", (req, res) => {
@@ -92,7 +103,7 @@ router.put("/product/:id", (req, res) => {
   }
 
   // Query untuk mendapatkan harga satuan produk dan quantity lama berdasarkan ID
-  const getDetailsSql = `SELECT product_price, quantity AS old_quantity FROM products WHERE id = ?`;
+  const getDetailsSql = `SELECT product_price, quantity FROM products WHERE id = ?`;
   db.query(getDetailsSql, [id], (err, results) => {
     if (err) {
       console.error("Query Error: ", err);
@@ -112,17 +123,11 @@ router.put("/product/:id", (req, res) => {
       });
     }
 
-    // Ambil harga satuan dan quantity lama dari hasil query
-    const unitPrice = results[0].product_price;
-    const oldQuantity = results[0].old_quantity;
-
-    // Hitung selisih quantity dan total harga baru
-    const newTotalPrice = (unitPrice/oldQuantity) * quantity;
 
 
     // Query untuk memperbarui quantity dan total harga
-    const updateSql = `UPDATE products SET quantity = ?, product_price = ? WHERE id = ?`;
-    db.query(updateSql, [quantity, newTotalPrice, id], (updateErr, updateResults) => {
+    const updateSql = `UPDATE products SET quantity = ? WHERE id = ?`;
+    db.query(updateSql, [quantity, id], (updateErr, updateResults) => {
       if (updateErr) {
         console.error("Update Error: ", updateErr);
         return res.status(500).json({
@@ -148,10 +153,7 @@ router.put("/product/:id", (req, res) => {
         message: `Product ${id} updated successfully`,
         data: {
           id,
-          old_quantity: oldQuantity,
-          new_quantity: quantity,
-          unit_price: unitPrice,
-          total_price: newTotalPrice,
+          quantity: quantity
         },
       });
     });

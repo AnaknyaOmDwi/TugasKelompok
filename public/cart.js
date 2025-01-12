@@ -4,8 +4,8 @@
 // const overlay = document.getElementById('overlay');
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('cart_id');
+// document.addEventListener('DOMContentLoaded', () => {
+//     const container = document.getElementById('cart_id');
 
     // // Delegasi event untuk link deskripsi produk
     // if (container) {
@@ -34,12 +34,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // });
     // Fungsi untuk melimit teks dan mengelola toggle "lihat selengkapnya"
     
-});
+// });
 
 
 // Event listener untuk mengubah warna tombol hapus menjadi hijau saat diklik
 
 // Tambahkan validasi dan event listener lainnya sesuai kebutuhan
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Ambil total harga dari localStorage
+    const totalPrice = localStorage.getItem('totalPrice');
+    
+    if (totalPrice) {
+        const iniTotal = document.getElementById('total');
+        iniTotal.innerHTML = `Rp.${parseFloat(totalPrice).toLocaleString()}`;
+    }
+});
+
 
 
 
@@ -235,83 +246,78 @@ async function tampilkanData(dataS,dataP) {
         </div>
     `;
 
-    produkDiv.querySelector(`#increment-btn`).addEventListener('click', async () => {
-        try {
-            // Tambahkan kuantitas
-            item.quantity += 1;
-    
-            // Hitung total harga berdasarkan kuantitas baru
-            const totalPrice = item.product_price * item.quantity   
-            console.log(item.product_price);
-            console.log(item.quantity);
+produkDiv.querySelector(`#increment-btn`).addEventListener('click', async () => {
+    try {
+        // Tambahkan kuantitas
+        item.quantity += 1;
 
-            console.log(totalPrice);
+        // Perbarui tampilan kuantitas di UI
+        produkDiv.querySelector('.quantity span').textContent = item.quantity;
+
+        // Kirim permintaan ke server untuk memperbarui kuantitas
+        const response = await fetch(`http://localhost:3000/api/product/${item.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                quantity: item.quantity // Kirim kuantitas baru
+            })
+        });
+
+        if (response.ok) {
+            console.log(`Quantity updated successfully for Product ID ${item.id}`);
+        } else {
+            console.error(`Failed to update quantity for Product ID ${item.id}`);
+        }
+
+        // Panggil fungsi total untuk menghitung ulang seluruh harga
+        total(true);
+
+    } catch (error) {
+        console.error('Error updating quantity:', error);
+    }
+});
     
-            // Perbarui tampilan kuantitas dan harga total di UI
+    
+    
+
+produkDiv.querySelector(`#decrement-btn`).addEventListener('click', async () => {
+    try {
+        if (item.quantity > 1) { // Validasi agar tidak berkurang di bawah 1
+            // Kurangi kuantitas
+            item.quantity -= 1;
+
+            // Perbarui kuantitas di UI
             produkDiv.querySelector('.quantity span').textContent = item.quantity;
-            produkDiv.querySelector('.priceQuantity p').textContent = `Rp ${totalPrice.toLocaleString()}`;
-    
-            // Kirim permintaan ke server untuk memperbarui kuantitas dan total harga
+
+            // Kirim permintaan ke server untuk memperbarui kuantitas
             const response = await fetch(`http://localhost:3000/api/product/${item.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    quantity: item.quantity, // Kirim kuantitas baru
-                    total_price: totalPrice // Kirim total harga baru
+                    quantity: item.quantity // Kirim nilai baru
                 })
             });
-    
-            if (response.ok) {
-                console.log(`Quantity updated successfully for Product ID ${item.id}`);
-            } else {
-                console.error(`Failed to update quantity for Product ID ${item.id}`);
-            }
-        } catch (error) {
-            console.error('Error updating quantity:', error);
-        }
-    });
-    
 
-    produkDiv.querySelector(`#decrement-btn`).addEventListener('click', async () => {
-        try {
-            if (item.quantity > 1) { // Validasi agar tidak berkurang di bawah 1
-                // Kurangi kuantitas di tampilan
-                item.quantity -= 1;
-    
-                // Hitung total harga berdasarkan kuantitas baru
-                const totalPrice = item.product_price * item.quantity;
-                console.log(`Price: ${item.product_price}, Quantity: ${item.quantity}, Total: ${totalPrice}`);
-    
-                // Perbarui kuantitas dan harga total di tampilan
-                produkDiv.querySelector('.quantity span').textContent = item.quantity;
-                produkDiv.querySelector('.priceQuantity p').textContent = `Rp ${totalPrice.toLocaleString()}`;
-    
-                // Kirim permintaan ke server untuk memperbarui kuantitas
-                const response = await fetch(`http://localhost:3000/api/product/${item.id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        quantity: item.quantity, // Kirim nilai baru
-                        total_price: totalPrice
-                    })
-                });
-    
-                if (response.ok) {
-                    console.log(`Quantity decremented successfully for Product ID ${item.id}`);
-                } else {
-                    console.error(`Failed to decrement quantity for Product ID ${item.id}`);
-                }
+            if (response.ok) {
+                console.log(`Quantity decremented successfully for Product ID ${item.id}`);
             } else {
-                console.warn("Quantity cannot be less than 1."); // Pesan peringatan jika user mencoba mengurangi kuantitas di bawah 1
+                console.error(`Failed to decrement quantity for Product ID ${item.id}`);
             }
-        } catch (error) {
-            console.error('Error decrementing quantity:', error);
+
+            // Panggil fungsi total untuk memperbarui total keseluruhan
+            total(true);
+
+        } else {
+            console.warn("Quantity cannot be less than 1."); // Pesan peringatan jika user mencoba mengurangi kuantitas di bawah 1
         }
-    });
+    } catch (error) {
+        console.error('Error decrementing quantity:', error);
+    }
+});
     
 
 
@@ -328,6 +334,7 @@ async function tampilkanData(dataS,dataP) {
         checkboxProduct.addEventListener('change', () => {
             updateCheckProduct(item.id, checkboxProduct.checked);//dipanggil untuk memperbarui status produk di database
             updateShopCheckboxState(id_toko);//dipanggil untuk memperbarui status checkbox toko sesuai dengan status semua produk dalam toko tersebut.
+            total(checkboxProduct.checked)
         });
     }
     if (checkboxShop) {//Memastikan elemen checkbox untuk toko (checkboxShop) true sebelum menambahkan event listener.
@@ -459,6 +466,7 @@ async function updateCheckProduct(productId, isChecked) {
         } else {
             console.error(`Failed to update Product ID ${productId}`);
         }
+        total(true)
     } catch (error) {
         console.error('Error updating product:', error);
     }
@@ -476,11 +484,12 @@ async function updateCheckShop(shopId, isChecked) {
             })
         });
 
-        if (response.ok) {  
+        if (response.ok) {      
             console.log(`Shop ID ${shopId} updated successfully!`); 
         } else {
             console.error(`Failed to update Product ID ${shopId}`);
         }
+        total(true)
     } catch (error) {
         console.error('Error updating product:', error);
     }
@@ -512,6 +521,38 @@ async function relodall() {
     }
 }
 
+async function total(isChecked) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/products/check?check_product=${isChecked ? 1 : 0}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
+        if (response.ok) {
+            const dataPC = await response.json();
+            let totalsemua = 0; 
+            
+            dataPC.data.forEach(item => {
+                if (item.check_product === 1) {  // Hanya hitung produk yang dicentang
+                    totalsemua += item.product_price * item.quantity;
+                }
+            });
+
+            // Simpan total harga ke localStorage
+            localStorage.setItem('totalPrice', totalsemua);
+
+            const iniTotal = document.getElementById('total');
+            iniTotal.innerHTML = `Rp.${totalsemua.toLocaleString()}`;
+
+            console.log('Total price:', totalsemua);
+        } else {
+            console.error('Failed to fetch product data.');
+        }
+    } catch (error) {
+        console.error('Error fetching product data:', error);
+    }
+}
 
 fetchData()
