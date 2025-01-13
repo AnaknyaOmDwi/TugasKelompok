@@ -50,7 +50,7 @@ router.get("/toko", (req, res) => {
       console.error("Query Error : ", err);
       res
         .status(500)
-        .json({ "status ": 500, error: true, massage: "Query error" });
+        .json({ "status ": 500, "error": true, "massage": "Query error" });
     }
     res.status(200).json({ status: 200, error: false, data: results });
   });
@@ -133,7 +133,6 @@ router.put("/products/:id", (req, res) => {
       error: false,
       message: `Product ${id} updated successfully`,
     });
-    console.log(results)
 
     
     // const checkedsql = ``
@@ -317,7 +316,5 @@ router.delete("/history", (req, res) => {
   });
 });
 
-//Relod DataBase
-router.post('/')
 
 module.exports = router;

@@ -32,8 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 totalakhir = totalsemua - ongkos
                 const last = document.getElementById('last')
                 last.innerHTML = `Rp.${totalakhir.toLocaleString()}`;
-
-
             } else {
                 console.error('Failed to fetch product data.');
             }
@@ -63,18 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function tampilkanData(dataS, dataP) {
         const container = document.getElementById("cart_id");
-        if (!container) {
-            console.error("Element with id 'cart_id' not found.");
-            return;
-        }
-
         dataS.forEach(shop => {
             const id_toko = shop.id;
             const tokoDiv = document.createElement("div");
             tokoDiv.className = "toko tw-flex tw-justify-start tw-rounded-lg gap-2";
 
+
             const produkShop = dataP.filter(product => product.shop_id === id_toko && product.check_product === 1);
-            if (produkShop.length === 0) {
+            if (produkShop.length == 0) {
                 return;
             }
 
@@ -86,7 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             container.appendChild(tokoDiv);
 
+            if (!produkShop.product_name){
+                const belumada = document.getElementById('belum-ada');
+                belumada.style.display='none';
+            }
             produkShop.forEach(item => {
+
                 const produkDiv = document.createElement("div");
                 produkDiv.className = "tw-flex tw-justify-between tw-items-center gap-3";
                 produkDiv.innerHTML = `
