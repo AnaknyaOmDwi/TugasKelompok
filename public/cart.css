@@ -290,7 +290,7 @@ img{
 .product-details > img{
   border-radius: 30px;
   border: 1px solid black;
-  height: 200px;
+  height: auto;
 }
 .priceQuantity {
   display: flex;
@@ -428,3 +428,8 @@ img{
 .relod{
   cursor: pointer
 }
+
+#checkout-message{
+  display: none; 
+  background-color: rgba(0, 0, 0, 0.5);
+} 

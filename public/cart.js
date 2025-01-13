@@ -222,12 +222,12 @@ async function tampilkanData(dataS,dataP) {
     <div class="tw-flex gap-4" id="product">
         <div>
             <label for="checkbox-product${item.id}">
-                <input type="checkbox" id="checkbox-product${item.id}" name="checkbox-product${item.id}" data-product-id="${item.id}" data-shop-id="${item.shop_id}" />
+                <input type="checkbox" class="checkbox_product" id="checkbox-product${item.id}" name="checkbox-product${item.id}" data-product-id="${item.id}" data-shop-id="${item.shop_id}" />
 
             </label>
         </div>
         <div class="product-details tw-flex gap-2">
-            <img src="${item.product_photo}" width="150px" alt="${item.product_name}" />
+            <img src="${item.product_photo}" width="200px" height="200px" alt="${item.product_name}" />
             <div class="tw-flex tw-flex-col gap-4 p-1">
                 <h2 class="poppins-regular tw-text-[16px]">${item.product_name}</h2>
                 <div class="description tw-flex tw-flex-col" id="comment1">
@@ -332,6 +332,7 @@ produkDiv.querySelector(`#decrement-btn`).addEventListener('click', async () => 
     if (checkboxProduct) {
         // /Menambahkan event listener untuk menangani perubahan status checkbox produk.
         checkboxProduct.addEventListener('change', () => {
+            updateJumlahChecklist()
             updateCheckProduct(item.id, checkboxProduct.checked);//dipanggil untuk memperbarui status produk di database
             updateShopCheckboxState(id_toko);//dipanggil untuk memperbarui status checkbox toko sesuai dengan status semua produk dalam toko tersebut.
             total(checkboxProduct.checked)
@@ -448,6 +449,8 @@ async function Delete(isChecked) {
     }
 }
 
+
+
 // Fungsi untuk memperbarui status checkbox produk di server
 async function updateCheckProduct(productId, isChecked) {
     try {
@@ -457,7 +460,7 @@ async function updateCheckProduct(productId, isChecked) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                check_product: isChecked ? 1 : 0
+                check_product: isChecked ? 1 : 0,
             })
         });
 
@@ -471,6 +474,9 @@ async function updateCheckProduct(productId, isChecked) {
         console.error('Error updating product:', error);
     }
 }
+
+
+
 // Fungsi untuk memperbarui status checkbox Shop di server
 async function updateCheckShop(shopId, isChecked) {
     try {
@@ -552,6 +558,24 @@ async function total(isChecked) {
         }
     } catch (error) {
         console.error('Error fetching product data:', error);
+    }
+}
+
+
+const checkoutMessage = document.getElementById('checkout-button')
+if(checkoutMessage){
+    checkoutMessage.addEventListener('click',()=>{
+        isChecked = true// Mengambil status checkbox
+        checkout(isChecked)
+    })
+}
+async function checkout(isChecked){
+    try{
+        if (isChecked){
+            location.href = "/checkout";
+        }
+    }catch(error){
+        console.error('error checkout')
     }
 }
 

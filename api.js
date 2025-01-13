@@ -30,6 +30,18 @@ router.get('/products/check',(req,res)=>{
   
 })
 
+router.get('/toko/check',(req,res)=>{
+  const sql = `SELECT * FROM shop WHERE shop.check_toko = 1;`
+  db.query(sql,(err,results)=>{
+      if(err){
+          console.error("Query Error : ", err)
+          res.status(500).json({"status " : 500, "error": true, "massage": "Query error"})
+      }
+      res.status(200).json({ "status": 200, "error": false, "data": results });
+  })
+  
+})
+
 // Menampilkan Semua Data Toko
 router.get("/toko", (req, res) => {
   const sql = `SELECT * FROM shop`;
@@ -58,9 +70,9 @@ router.put("/products/:id", (req, res) => {
     });
   }
 
-  const sql = `UPDATE products SET check_product = ? WHERE id = ?`;
+  const sql = `UPDATE products SET check_product = ? WHERE id = ?;`;
 
-  db.query(sql, [check_product, id], (err, results) => {
+  db.query(sql, [check_product, id,check_product, id], (err, results) => {
     if (err) {
       console.error("Query Error: ", err);
       return res.status(500).json({
@@ -85,8 +97,13 @@ router.put("/products/:id", (req, res) => {
       error: false,
       message: `Product ${id} updated successfully`,
     });
+    console.log(results)
+
+    
+    // const checkedsql = ``
   });
 });
+
 
 //Mengedit data quantity dan price product (true/false)
 router.put("/product/:id", (req, res) => {
