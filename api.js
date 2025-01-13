@@ -7,7 +7,7 @@ router.use(cors());
 
 // Menampilkan Semua Data Products
 router.get('/products',(req,res)=>{
-    const sql = `SELECT a.id, a.product_name, a.product_photo, a.product_price, a.description, a.quantity, a.check_product, a.shop_id, b.shop_name, b.shop_photo, b.check_toko FROM products a JOIN shop b ON a.shop_id = b.id`
+    const sql = `SELECT a.id, a.product_name, a.product_photo, a.product_price, a.diskon, a.description, a.quantity, a.check_product, a.shop_id, b.shop_name, b.shop_photo, b.check_toko FROM products a JOIN shop b ON a.shop_id = b.id`
     db.query(sql,(err,results)=>{
         if(err){
             console.error("Query Error : ", err)
@@ -19,7 +19,7 @@ router.get('/products',(req,res)=>{
 })
 
 router.get('/products/check',(req,res)=>{
-  const sql = `SELECT a.id, a.product_name, a.product_photo, a.product_price, a.description, a.quantity, a.check_product, a.shop_id, b.shop_name, b.shop_photo, b.check_toko FROM products a JOIN shop b ON a.shop_id = b.id WHERE a.check_product = 1;`
+  const sql = `SELECT a.id, a.product_name, a.product_photo, a.product_price, a.diskon, a.description, a.quantity, a.check_product, a.shop_id, b.shop_name, b.shop_photo, b.check_toko FROM products a JOIN shop b ON a.shop_id = b.id WHERE a.check_product = 1;`
   db.query(sql,(err,results)=>{
       if(err){
           console.error("Query Error : ", err)
@@ -55,6 +55,42 @@ router.get("/toko", (req, res) => {
     res.status(200).json({ status: 200, error: false, data: results });
   });
 });
+
+
+router.post('/check-product', async (req, res) => {
+  const { product_id } = req.body;
+
+  if (!product_id) {
+      return res.status(400).json({ error: 'Product ID is required' });
+  }
+
+  try {
+      // Cari `shop_id` berdasarkan `product_id`
+      const [product] = await db.query(
+          'SELECT shop_id FROM products WHERE id = ?',
+          [product_id]
+      );
+
+      if (product.length === 0) {
+          return res.status(404).json({ error: 'Product not found' });
+      }
+
+      const shop_id = product[0].shop_id;
+
+      // Increment `checked_product` di tabel `shop`
+      await db.query(
+          'UPDATE shop SET checked_product = checked_product + 1 WHERE id = ?',
+          [shop_id]
+      );
+
+      res.json({ success: true, message: 'Product checked and shop updated' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 
 //Mengedit data check product (true/false)
 router.put("/products/:id", (req, res) => {

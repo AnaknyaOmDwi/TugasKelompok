@@ -328,16 +328,39 @@ produkDiv.querySelector(`#decrement-btn`).addEventListener('click', async () => 
 
     checkboxProduct.checked = item.check_product === 1;
 
+
+
    //Memastikan elemen checkbox untuk produk (checkboxProduct) ada sebelum menambahkan event listener.
     if (checkboxProduct) {
         // /Menambahkan event listener untuk menangani perubahan status checkbox produk.
         checkboxProduct.addEventListener('change', () => {
-            updateJumlahChecklist()
             updateCheckProduct(item.id, checkboxProduct.checked);//dipanggil untuk memperbarui status produk di database
             updateShopCheckboxState(id_toko);//dipanggil untuk memperbarui status checkbox toko sesuai dengan status semua produk dalam toko tersebut.
             total(checkboxProduct.checked)
+
         });
     }
+
+    // Fungsi untuk Check Produk
+async function checkProduct(productId) {
+    try {
+        const response = await fetch('/api/check-product', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ product_id: productId })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            console.log('Product checked successfully');
+        } else {
+            console.error(result.error);
+        }
+    } catch (error) {
+        console.error('Error checking product:', error);
+    }
+}
+    
     if (checkboxShop) {//Memastikan elemen checkbox untuk toko (checkboxShop) true sebelum menambahkan event listener.
         checkboxShop.addEventListener('change', () => {
             const isChecked = checkboxShop.checked;
@@ -548,6 +571,7 @@ async function total(isChecked) {
 
             // Simpan total harga ke localStorage
             localStorage.setItem('totalPrice', totalsemua);
+            console.log("tes:",totalsemua)
 
             const iniTotal = document.getElementById('total');
             iniTotal.innerHTML = `Rp.${totalsemua.toLocaleString()}`;
