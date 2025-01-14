@@ -1,4 +1,3 @@
-
 const totalPrice = localStorage.getItem('totalPrice');
 document.addEventListener('DOMContentLoaded', () => {
     async function total(isChecked) {
@@ -19,18 +18,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 const iniTotal = document.getElementById('total');
-                iniTotal.innerHTML = `Rp.${parseInt(totalPrice).toLocaleString()}`;
+                iniTotal.innerHTML = `Rp.${totalsemua.toLocaleString()}`;
 
                 const discountGet = document.getElementById('disc');
-                let ongkos = 15000
-                diskonGet = totalPrice - totalsemua
+                const ongkos = 15000;
+                const diskonGet = totalPrice - totalsemua;
                 discountGet.innerHTML = `Rp.${diskonGet.toLocaleString()}`;
-                
-                const ongkir = document.getElementById('ongkir')
+
+                const ongkir = document.getElementById('ongkir');
                 ongkir.innerHTML = `Rp.${ongkos.toLocaleString()}`;
 
-                totalakhir = totalsemua - ongkos
-                const last = document.getElementById('last')
+                const totalakhir = totalsemua + ongkos;
+                const last = document.getElementById('last');
                 last.innerHTML = `Rp.${totalakhir.toLocaleString()}`;
             } else {
                 console.error('Failed to fetch product data.');
@@ -40,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    total(true); // Perbaikan: Tambahkan parameter
+    total(true); // Panggil fungsi dengan parameter awal
 
     async function fetchData() {
         try {
@@ -59,16 +58,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function tampilkanData(dataS, dataP) {
+    function tampilkanData(dataS, dataP) {
         const container = document.getElementById("cart_id");
+        container.innerHTML = ""; // Bersihkan container sebelum memuat data baru
+
         dataS.forEach(shop => {
             const id_toko = shop.id;
             const tokoDiv = document.createElement("div");
             tokoDiv.className = "toko tw-flex tw-justify-start tw-rounded-lg gap-2";
 
-
             const produkShop = dataP.filter(product => product.shop_id === id_toko && product.check_product === 1);
-            if (produkShop.length == 0) {
+            if (produkShop.length === 0) {
                 return;
             }
 
@@ -80,12 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             container.appendChild(tokoDiv);
 
-            if (!produkShop.product_name){
-                const belumada = document.getElementById('belum-ada');
-                belumada.style.display='none';
-            }
             produkShop.forEach(item => {
-
                 const produkDiv = document.createElement("div");
                 produkDiv.className = "tw-flex tw-justify-between tw-items-center gap-3";
                 produkDiv.innerHTML = `
@@ -94,6 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             <img src="${item.product_photo}" width="200px" height="200px" alt="${item.product_name}" />
                             <div class="tw-flex tw-flex-col gap-4 p-1">
                                 <h2 class="poppins-regular tw-text-[16px]">${item.product_name}</h2>
+                                <div class="tw-flex tw-items-center gap-2">
+                                    <input type="text" class="note-input tw-border tw-rounded tw-px-2 tw-py-1" placeholder="Masukkan catatan..." />
+                                    <button class="save-note-button tw-bg-blue-500 tw-text-white tw-px-4 tw-py-1 tw-rounded hover:tw-bg-blue-600">
+                                        Save
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -106,9 +107,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
 
                 container.appendChild(produkDiv);
-                const hr = document.createElement("hr");
-                container.appendChild(hr);
+
+                // Tambahkan event listener untuk tombol Save
+                const saveButton = produkDiv.querySelector('.save-note-button');
+                const noteInput = produkDiv.querySelector('.note-input');
+                saveButton.addEventListener('click', () => {
+                    const note = noteInput.value;
+                    const productId = item.id;
+                    console.log(item.id)
+
+                    fetch(`http://localhost:3000/api/update-note/${productId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            note: note
+                        }),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            if (data.message) {
+                                alert(data.message);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Terjadi kesalahan:', error);
+                        });
+                });
             });
+
+            const hr = document.createElement("hr");
+            container.appendChild(hr);
         });
     }
 

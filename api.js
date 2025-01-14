@@ -18,6 +18,30 @@ router.get('/products',(req,res)=>{
     
 })
 
+// Endpoint untuk mengupdate note produk
+router.post('/update-note/:id', (req, res) => {
+  const { note } = req.body;
+  const id = req.params.id;
+
+  if (!id || note === undefined) {
+      return res.status(400).json({ message: 'Product ID dan note harus disertakan.' });
+  }
+
+  const query = 'UPDATE products SET note = ? WHERE id = ?';
+  db.query(query, [note, id], (err, result) => {
+      if (err) {
+          console.error('Gagal mengupdate note:', err);
+          return res.status(500).json({ message: 'Terjadi kesalahan pada server.' });
+      }
+
+      if (result.affectedRows === 0) {
+          return res.status(404).json({ message: 'Produk tidak ditemukan.' });
+      }
+
+      res.status(200).json({ message: 'Catatan berhasil diperbarui.' });
+  });
+});
+
 router.get('/products/check',(req,res)=>{
   const sql = `SELECT a.id, a.product_name, a.product_photo, a.product_price, a.diskon, a.description, a.quantity, a.check_product, a.shop_id, b.shop_name, b.shop_photo, b.check_toko FROM products a JOIN shop b ON a.shop_id = b.id WHERE a.check_product = 1;`
   db.query(sql,(err,results)=>{
