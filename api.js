@@ -7,7 +7,7 @@ router.use(cors());
 
 // Menampilkan Semua Data Products
 router.get('/products',(req,res)=>{
-    const sql = `SELECT a.id, a.product_name, a.product_photo, a.product_price, a.diskon, a.description, a.quantity, a.check_product, a.shop_id, b.shop_name, b.shop_photo, b.check_toko FROM products a JOIN shop b ON a.shop_id = b.id`
+    const sql = `SELECT a.id, a.product_name, a.product_photo, a.product_price, a.diskon, a.description, a.quantity,a.note, a.check_product, a.shop_id, b.shop_name, b.shop_photo, b.check_toko FROM products a JOIN shop b ON a.shop_id = b.id`
     db.query(sql,(err,results)=>{
         if(err){
             console.error("Query Error : ", err)

@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="tw-flex tw-flex-col gap-4 p-1">
                                 <h2 class="poppins-regular tw-text-[16px]">${item.product_name}</h2>
                                 <div class="tw-flex tw-items-center gap-2">
-                                    <input type="text" class="note-input tw-border tw-rounded tw-px-2 tw-py-1" placeholder="Masukkan catatan..." />
+                                    <input type="text" class="note-input tw-border tw-rounded tw-px-2 tw-py-1" placeholder="${item.note}""/>
                                     <button class="save-note-button tw-bg-blue-500 tw-text-white tw-px-4 tw-py-1 tw-rounded hover:tw-bg-blue-600">
                                         Save
                                     </button>
