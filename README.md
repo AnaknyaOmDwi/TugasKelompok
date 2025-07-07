@@ -1,4 +1,4 @@
-# Cara Menjalankan Aplikasi
+## Cara Menjalankan Aplikasi
 
 # Clone repositori
 git clone https://github.com/AnaknyaOmDwi/TugasKelompok.git
