@@ -21,6 +21,7 @@ npm start
 ```
 
 Aplikasi akan berjalan di `http://localhost:3000`
+pastikan memiliki database bernama antobengkel yang ada di folder dataSQL
 
 ---
 
