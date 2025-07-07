@@ -1,17 +1,34 @@
 # Cara Menjalankan Aplikasi
 
-## Clone repositori
+## 1. Clone repositori
 ```bash
 git clone https://github.com/AnaknyaOmDwi/TugasKelompok.git
+```
 
-## Masuk kedalam project
+## 2. Masuk ke dalam folder project
 ```bash
 cd TugasKelompok
+```
 
-## Install dependencies
+## 3. Install dependencies
 ```bash
 npm install
+```
 
-## Jalankan
+## 4. Jalankan aplikasi
 ```bash
 npm start
+```
+
+Aplikasi akan berjalan di `http://localhost:3000`
+
+---
+
+# Teknologi yang Digunakan
+
+- **Backend**: Node.js, Express
+- **Database**: MySQL
+- **Frontend**: HTML, CSS, JavaScript, TailwindCSS
+- **Tools**: Nodemon (dev only)
+
+---
