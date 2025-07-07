@@ -1,11 +1,11 @@
-## Cara Menjalankan Aplikasi
+# Cara Menjalankan Aplikasi
 
-# Clone repositori
+## Clone repositori
 git clone https://github.com/AnaknyaOmDwi/TugasKelompok.git
 cd TugasKelompok
 
-# Install dependencies
+## Install dependencies
 npm install
 
-# Jalankan
+## Jalankan
 npm start
