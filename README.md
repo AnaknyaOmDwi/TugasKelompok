@@ -1,6 +1,6 @@
 ## 🚀 Cara Menjalankan Aplikasi
 
-### 1. Clone repositori
+# Clone repositori
 git clone https://github.com/AnaknyaOmDwi/TugasKelompok.git
 cd TugasKelompok
 
