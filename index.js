@@ -11,6 +11,6 @@ app.use(main)
 
 
 app.listen(3000,()=>{
-    console.log('Website sedang lasak')
+    console.log('http://localhost:3000')
 })
 
