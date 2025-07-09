@@ -19,6 +19,10 @@ npm install
 ```bash
 npm start
 ```
+atau
+```bash
+npm run dev
+```
 
 Aplikasi akan berjalan di `http://localhost:3000`
 pastikan memiliki database bernama antobengkel yang ada di folder dataSQL
